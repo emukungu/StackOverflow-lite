@@ -30,5 +30,21 @@ def post():
             questions_list.append(question)
             message = {"message":"Your question has been posted"}
             return message["message"], status.HTTP_200_OK
+
+@app.route('/api/v1/questions', methods = ['GET'])
+def get_all_questions():     
+    """This endpoint will fetch all questions """
+    listed_questions = []
+    if questions_list == []:
+        message = {"message":"No questions exist on this platform"}
+        return message["message"]
+    else:
+        for question in questions_list:
+        #return dictionary that can be jsonified easily
+            questions = {"title": question.title}  
+            listed_questions.append(questions)
+        return jsonify(listed_questions)
+        
+    
              
         
