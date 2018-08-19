@@ -55,4 +55,22 @@ def question_id(questionId):
             message = {"message": "The question doesnot exist on this platform"}
             return message["message"]    
              
+@app.route('/api/v1/questions/<int:questionId>/answer', methods= ['POST'])
+def answer(questionId):
+    """This endpoint will post an answer to a specific question """
+    question_answers = []
+    data = request.json
+    qn_answer = data['answer']
+    if qn_answer != "":
+        for question in questions_list:
+            if question.qn_id == questionId:
+                answer2 = deepcopy(question)
+                answer2.qn_answer = qn_answer
+                question_answers = [question.questionAccount()]
+                question_answers.append(answer2.questionAccount())
+                return jsonify(question_answers)
+    else:
+        message = {"message": "Please add an answer to the question"}
+        return message["message"]
+
         
