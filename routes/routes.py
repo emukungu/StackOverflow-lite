@@ -29,4 +29,4 @@ def post():
             # store the object in a list
             questions_list.append(question)
             message = {"message":"Your question has been posted"}
-            return message["message"], status.HTTP_200_OK        
+            return message["message"], 200        
