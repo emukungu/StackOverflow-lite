@@ -10,7 +10,7 @@ class Question(object):
         self.qn_id = Question._id + 1
         self.qn_answer = qn_answer
 
-    def questionAcount(self):
+    def questionAccount(self):
         self.question_account = {
             'title': self.title,
             'description': self.description,

@@ -1,9 +1,7 @@
 from web_app import app
-from flask import request, jsonify, json, Response
+from flask import request, jsonify, json
 from copy import deepcopy
 from models.models import Question
-# import flask_api as api
-# from flask_api import status
 from flask_api import status
 
 questions_list = []
@@ -41,10 +39,20 @@ def get_all_questions():
     else:
         for question in questions_list:
         #return dictionary that can be jsonified easily
-            questions = {"title": question.title}  
+            questions = {"title": question.title,
+                         "qn_id":question.qn_id}  
             listed_questions.append(questions)
         return jsonify(listed_questions)
         
-    
+@app.route('/api/v1/questions/<int:questionId>', methods = ['GET'])
+def question_id(questionId):
+    """This endpoint will fetch a specific question """
+    for question in questions_list:
+        if question.qn_id == questionId:
+            question_details = question.questionAccount()        
+            return jsonify(question_details)        
+        else:
+            message = {"message": "The question doesnot exist on this platform"}
+            return message["message"]    
              
         
