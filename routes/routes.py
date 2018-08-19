@@ -1,9 +1,7 @@
 from web_app import app
-from flask import request, jsonify, json, Response
+from flask import request, jsonify, json
 from copy import deepcopy
 from models.models import Question
-# import flask_api as api
-# from flask_api import status
 from flask_api import status
 
 questions_list = []
@@ -29,4 +27,54 @@ def post():
             # store the object in a list
             questions_list.append(question)
             message = {"message":"Your question has been posted"}
+<<<<<<< HEAD
             return message["message"], 200        
+=======
+            return message["message"], status.HTTP_200_OK
+
+@app.route('/api/v1/questions', methods = ['GET'])
+def get_all_questions():     
+    """This endpoint will fetch all questions """
+    listed_questions = []
+    if questions_list == []:
+        message = {"message":"No questions exist on this platform"}
+        return message["message"]
+    else:
+        for question in questions_list:
+        #return dictionary that can be jsonified easily
+            questions = {"title": question.title,
+                         "qn_id":question.qn_id}  
+            listed_questions.append(questions)
+        return jsonify(listed_questions)
+        
+@app.route('/api/v1/questions/<int:questionId>', methods = ['GET'])
+def question_id(questionId):
+    """This endpoint will fetch a specific question """
+    for question in questions_list:
+        if question.qn_id == questionId:
+            question_details = question.questionAccount()        
+            return jsonify(question_details)        
+        else:
+            message = {"message": "The question doesnot exist on this platform"}
+            return message["message"]    
+             
+@app.route('/api/v1/questions/<int:questionId>/answer', methods= ['POST'])
+def answer(questionId):
+    """This endpoint will post an answer to a specific question """
+    question_answers = []
+    data = request.json
+    qn_answer = data['answer']
+    if qn_answer != "":
+        for question in questions_list:
+            if question.qn_id == questionId:
+                answer2 = deepcopy(question)
+                answer2.qn_answer = qn_answer
+                question_answers = [question.questionAccount()]
+                question_answers.append(answer2.questionAccount())
+                return jsonify(question_answers)
+    else:
+        message = {"message": "Please add an answer to the question"}
+        return message["message"]
+
+        
+>>>>>>> ft-get-all-questions-#159866571
