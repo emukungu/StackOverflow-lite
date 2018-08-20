@@ -24,9 +24,9 @@ POST api/v1/questions/questionId/answer| Post an answer
 
 ## Setting up the project
 Clone repository from link below
-*git clone `https://github.com/emukungu/StackOverflow-lite.git`
+* git clone `https://github.com/emukungu/StackOverflow-lite.git`
 Setup virtual environment
-* mkvirtualenv 'virtualenv_name' ````
+* mkvirtualenv 'virtualenv_name' 
 Install project requirements
 * pip install -r requirements.txt
 Run the tests
