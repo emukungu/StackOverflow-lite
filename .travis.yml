@@ -10,7 +10,7 @@ install:
   - pip install pytest
 # command to run tests
 script:
-  - pytest --cov=test --with-coverage
+  - coverage run -m pytest
   - coverage report
 
 after_success:
