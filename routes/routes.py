@@ -20,17 +20,16 @@ def post():
         qn_answer = data['answer']
         if title == "" or desc == "" or user_id == "" or date == "" or qn_answer == "":
             message["message"] = "Fill in all the fields "
-            return message["message"]     
+            return message["message"], 400
         else:
             #create an object from it
             question =  Question(title, desc, user_id, date, qn_answer)
             # store the object in a list
             questions_list.append(question)
             message = {"message":"Your question has been posted"}
-<<<<<<< HEAD
-            return message["message"], 200        
-=======
-            return message["message"], status.HTTP_200_OK
+
+            return message["message"], 200
+
 
 @app.route('/api/v1/questions', methods = ['GET'])
 def get_all_questions():     
@@ -38,26 +37,28 @@ def get_all_questions():
     listed_questions = []
     if questions_list == []:
         message = {"message":"No questions exist on this platform"}
-        return message["message"]
+        return message["message"], 404
     else:
         for question in questions_list:
         #return dictionary that can be jsonified easily
             questions = {"title": question.title,
                          "qn_id":question.qn_id}  
             listed_questions.append(questions)
-        return jsonify(listed_questions)
-        
+        return jsonify(listed_questions), 200
+
+
 @app.route('/api/v1/questions/<int:questionId>', methods = ['GET'])
 def question_id(questionId):
     """This endpoint will fetch a specific question """
     for question in questions_list:
         if question.qn_id == questionId:
             question_details = question.questionAccount()        
-            return jsonify(question_details)        
+            return jsonify(question_details), 200
         else:
             message = {"message": "The question doesnot exist on this platform"}
-            return message["message"]    
-             
+            return message["message"], 404
+
+
 @app.route('/api/v1/questions/<int:questionId>/answer', methods= ['POST'])
 def answer(questionId):
     """This endpoint will post an answer to a specific question """
@@ -71,10 +72,7 @@ def answer(questionId):
                 answer2.qn_answer = qn_answer
                 question_answers = [question.questionAccount()]
                 question_answers.append(answer2.questionAccount())
-                return jsonify(question_answers)
+                return jsonify(question_answers), 200
     else:
         message = {"message": "Please add an answer to the question"}
-        return message["message"]
-
-        
->>>>>>> ft-get-all-questions-#159866571
+        return message["message"], 400
