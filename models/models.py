@@ -1,3 +1,17 @@
+class User(object):
+    def __init__(self,username,password,email):
+        self.username = username
+        self.password = password
+        self.email = email
+
+    def useraccount(self):
+        self.user_account = {
+            "username": self.username,
+            "password": self.password,
+            "email": self.email,
+        }
+        return self.user_account
+
 class Question(object):
     _id  = 0
     
