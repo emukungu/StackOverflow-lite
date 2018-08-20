@@ -24,17 +24,17 @@ POST api/v1/questions/questionId/answer| Post an answer
 
 ## Setting up the project
 Clone repository from link below
-```` git clone `https://github.com/emukungu/StackOverflow-lite.git` ````
+*git clone `https://github.com/emukungu/StackOverflow-lite.git`
 Setup virtual environment
-```` mkvirtualenv 'virtualenv_name' ````
+* mkvirtualenv 'virtualenv_name' ````
 Install project requirements
-```` pip install -r requirements.txt````
+* pip install -r requirements.txt
 Run the tests
-```` pytest ````
+* pytest 
 Run the application to start the server
-```` python app.py ````
+* python app.py 
 Open the browser to view the endpoints with their specifications
-```` localhost:5000 ```
+* localhost:5000 
 
 ### License
 MIT License
