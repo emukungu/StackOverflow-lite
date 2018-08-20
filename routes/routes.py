@@ -1,4 +1,4 @@
-from web_app import app
+from app import app
 from flask import request, jsonify, json
 from copy import deepcopy
 from models.models import Question

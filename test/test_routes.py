@@ -1,6 +1,6 @@
 import unittest
 from flask_api import status
-from web_app import app
+from app import app
 from flask import json
 from routes.routes import post, get_all_questions, question_id, answer
 
