@@ -1,3 +1,12 @@
 [
+  "test_models.py::TestQuestion::test__init__",
+  "test_models.py::TestQuestion::test_question_account",
+  "test_routes.py::TestRoutes::test_empty_get_all_questions",
+  "test_routes.py::TestRoutes::test_empty_post",
+  "test_routes.py::TestRoutes::test_empty_post_answer",
+  "test_routes.py::TestRoutes::test_get_all_questions",
+  "test_routes.py::TestRoutes::test_get_no_specific_question",
+  "test_routes.py::TestRoutes::test_get_specific_question",
+  "test_routes.py::TestRoutes::test_post_answer",
   "test_routes.py::TestRoutes::test_post_success"
 ]
