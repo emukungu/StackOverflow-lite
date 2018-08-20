@@ -14,7 +14,6 @@ GET /api/v1/questions/questionId| Get a specific question
 POST api/v1/questions/questionId/answer| Post an answer
 
 ## Setup/Installation Requirements
-* vscode
 * git bash
 * Postman
 * vscode
@@ -25,14 +24,19 @@ POST api/v1/questions/questionId/answer| Post an answer
 ## Setting up the project
 Clone repository from link below
 * git clone `https://github.com/emukungu/StackOverflow-lite.git`
+
 Setup virtual environment
 * mkvirtualenv 'virtualenv_name' 
+
 Install project requirements
 * pip install -r requirements.txt
+
 Run the tests
 * pytest 
+
 Run the application to start the server
 * python app.py 
+
 Open the browser to view the endpoints with their specifications
 * localhost:5000 
 
