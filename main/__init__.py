@@ -3,4 +3,5 @@ from flask import Flask
 
 app = Flask(__name__)
 
-from .routes.routes import post, get_all_questions, question_id, answer
+from  .routes.post_a_question_route import post
+from .routes.all_questions_route import get_all_questions
