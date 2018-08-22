@@ -28,7 +28,7 @@ class TestAnswer(unittest.TestCase):
     def setUp(self):
         self.answer = Answer("1", "1","Uses HTTP")
     
-    """ test if object created is of class Question """
+    """ test if object created is of class Answer """
     def test__init__(self):      
       self.assertIsInstance(self.answer, Answer)
 
@@ -44,7 +44,7 @@ class TestUser(unittest.TestCase):
     def setUp(self):
         self.user = User("esther","123password","esther@gmail.com")
     
-    """ test if object created is of class Question """
+    """ test if object created is of class User """
     def test__init__(self):      
       self.assertIsInstance(self.user, User)
 

@@ -21,6 +21,6 @@ def post():
             questions_list.append(question)
             message = {"message":"Your question has been posted"}
 
-            return message["message"], 200               
+            return message["message"], 201               
 
 

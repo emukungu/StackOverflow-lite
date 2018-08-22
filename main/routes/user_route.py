@@ -25,7 +25,7 @@ def register():
             users_list.append(user)
             message = {"message":"You have been successfully registered."}
 
-            return message["message"], 200
+            return message["message"], 201
 
 @app.route('/api/v1/users', methods = ['GET'])
 def get_all_users():     

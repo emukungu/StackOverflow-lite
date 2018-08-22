@@ -13,7 +13,7 @@ def answer(questionId):
                 answer = Answer(user_id, questionId, qn_answer)
                 {questionId:answer.answer_per_question()}
                 answers_list.append({questionId:answer.answer_per_question()})
-                return jsonify(answers_list)                                                         
+                return jsonify(answers_list) , 201                                                        
             else:
                 message = {"message": "No question with that id"}
                 return message["message"], 400                      
