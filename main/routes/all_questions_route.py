@@ -7,7 +7,7 @@ def get_all_questions():
     listed_questions = []
     if questions_list == []:
         message = {"message":"No questions exist on this platform"}
-        return message["message"], 404
+        return message["message"], 200
     else:
         for question in questions_list:
         #return dictionary that can be jsonified easily

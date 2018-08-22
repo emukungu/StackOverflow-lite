@@ -3,11 +3,11 @@ class Answer(object):
     def __init__(self, user_id, question_id, body):
         self.user_id = user_id,
         self.question_id = question_id,
-        self.body = body
+        self.answer = body
 
     def answer_per_question(self):
         self.particular_answer = {
-                "answer": self.body,
+                "answer": self.answer,
                 "user_id": self.user_id
                 # "question_id": self.question_id
                 }
