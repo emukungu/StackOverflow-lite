@@ -1,10 +1,12 @@
-from app import app
 from flask import request, jsonify, json
 from copy import deepcopy
-from models.models import Question
+from ..models.question_model import Question
+from ..models.answer_model import Answer
 from flask_api import status
+from main import app
 
 questions_list = []
+answers_list = []
 
 @app.route('/api/v1/questions', methods = ['POST'])
 def post():
@@ -15,20 +17,19 @@ def post():
         data = request.json
         title= data['title']
         desc = data['description']
-        user_id= data['user_id']
         date= data['date']
-        qn_answer = data['answer']
-        if title == "" or desc == "" or user_id == "" or date == "" or qn_answer == "":
+        user_id = data['user_id']
+        if title == "" or desc == "" or date == "":
             message["message"] = "Fill in all the fields "
             return message["message"], 400
         else:
             #create an object from it
-            question =  Question(title, desc, user_id, date, qn_answer)
+            question =  Question(title, desc, user_id, date)
             # store the object in a list
             questions_list.append(question)
             message = {"message":"Your question has been posted"}
 
-            return message["message"], 200
+            return message["message"], 200               
 
 
 @app.route('/api/v1/questions', methods = ['GET'])
@@ -41,8 +42,7 @@ def get_all_questions():
     else:
         for question in questions_list:
         #return dictionary that can be jsonified easily
-            questions = {"title": question.title,
-                         "qn_id":question.qn_id}  
+            questions = question.listed_question()  
             listed_questions.append(questions)
         return jsonify(listed_questions), 200
 
@@ -51,10 +51,10 @@ def get_all_questions():
 def question_id(questionId):
     """This endpoint will fetch a specific question """
     for question in questions_list:
-        if question.qn_id == questionId:
-            question_details = question.questionAccount()        
+        if  questionId == question.question_id():
+            question_details = question.question_details()        
             return jsonify(question_details), 200
-        else:
+        else:         
             message = {"message": "The question doesnot exist on this platform"}
             return message["message"], 404
 
@@ -62,17 +62,23 @@ def question_id(questionId):
 @app.route('/api/v1/questions/<int:questionId>/answer', methods= ['POST'])
 def answer(questionId):
     """This endpoint will post an answer to a specific question """
-    question_answers = []
     data = request.json
     qn_answer = data['answer']
-    if qn_answer != "":
+    user_id = data['user_id']
+   
+    # all_answers_per_question1 = []
+    if qn_answer != "" and user_id != "":
         for question in questions_list:
             if question.qn_id == questionId:
-                answer2 = deepcopy(question)
-                answer2.qn_answer = qn_answer
-                question_answers = [question.questionAccount()]
-                question_answers.append(answer2.questionAccount())
-                return jsonify(question_answers), 200
+                answer = Answer(user_id, questionId, qn_answer)
+                {questionId:answer.answer_per_question()}
+                answers_list.append({questionId:answer.answer_per_question()})
+                return jsonify(answers_list)                                                         
+            else:
+                message = {"message": "No question with that id"}
+                return message["message"], 400                      
     else:
         message = {"message": "Please add an answer to the question"}
         return message["message"], 400
+
+
