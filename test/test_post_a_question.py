@@ -1,6 +1,6 @@
 from .test_base import *
     
-class test_post_a_question(TestBase):
+class Test_post_a_question(TestBase):
 
     def test_empty_post(self):
         response = self.app.post('/api/v1/questions', data = json.dumps({"title":"","description":"",
