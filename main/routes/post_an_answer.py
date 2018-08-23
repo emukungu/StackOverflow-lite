@@ -3,11 +3,13 @@ from .baseRoutes import *
 @app.route('/api/v1/questions/<int:questionId>/answer', methods= ['POST'])
 def answer(questionId):
     """This endpoint will post an answer to a specific question """
-    data = request.json
+    data = request.get_json()
+    if not data:
+        return jsonify({"error":"All data is required"}), 400
     qn_answer = data['answer']
     user_id = data['user_id']   
     
-    if qn_answer != "" and user_id != "":
+    if qn_answer and user_id:
         for question in questions_list:
             if question.qn_id == questionId:
                 answer = Answer(user_id, questionId, qn_answer)
