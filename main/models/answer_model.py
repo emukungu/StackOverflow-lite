@@ -9,7 +9,6 @@ class Answer(object):
         self.particular_answer = {
                 "answer": self.answer,
                 "user_id": self.user_id
-                # "question_id": self.question_id
                 }
 
         return self.particular_answer
