@@ -13,13 +13,9 @@ POST /api/v1/questions| Post a question
 GET /api/v1/questions/questionId| Get a specific question
 POST api/v1/questions/questionId/answer| Post an answer
 
-## Setup/Installation Requirements
-* git bash
-* Postman
-* vscode
-
 ## Technologies Used
-* Python/flask
+* Python 3.6
+* Flask
 
 ## Setting up the project
 Clone repository from link below
@@ -32,13 +28,16 @@ Install project requirements
 * pip install -r requirements.txt
 
 Run the tests
-* pytest 
+* nosetests 
 
 Run the application to start the server
-* python app.py 
+* python run.py 
 
 Open the browser to view the endpoints with their specifications
 * localhost:5000 
+
+### Demo
+https://stackoverflow-esther.herokuapp.com/
 
 ### License
 MIT License
