@@ -3,15 +3,15 @@ from main.models.question_model import Question
 from main.models.answer_model import Answer
 from main.models.user_model import User
 
-class TestQuestion(unittest.TestCase):
+class TestQuestion(unittest.TestCase):    
     
-    """create an object of class question """
     def setUp(self):
+        """create an object of class question """
         self.question = Question("REST", "Introduction", 1, "2018-03-04")
     
-    """ test if object created is of class Question """
-    def test__init__(self):      
-      self.assertIsInstance(self.question, Question)
+    def test__init__(self): 
+        """ test if object created is of class Question """     
+        self.assertIsInstance(self.question, Question)
 
     def test_question_account(self):
         self.question_details = {
@@ -28,9 +28,9 @@ class TestAnswer(unittest.TestCase):
     def setUp(self):
         self.answer = Answer("1", "1","Uses HTTP")
     
-    """ test if object created is of class Answer """
-    def test__init__(self):      
-      self.assertIsInstance(self.answer, Answer)
+    def test__init__(self): 
+        """ test if object created is of class Answer """     
+        self.assertIsInstance(self.answer, Answer)
 
     def test_answer_per_question(self):
         self.particular_answer = {
@@ -44,9 +44,9 @@ class TestUser(unittest.TestCase):
     def setUp(self):
         self.user = User("esther","123password","esther@gmail.com")
     
-    """ test if object created is of class User """
-    def test__init__(self):      
-      self.assertIsInstance(self.user, User)
+    def test__init__(self):  
+        """ test if object created is of class User """    
+        self.assertIsInstance(self.user, User)
 
     def test_useraccount(self):
         self.user.user_account = {
