@@ -5,8 +5,6 @@ from .baseRoutes import request, jsonify, status, app, questions_list
 def get_all_questions():     
     """This endpoint will fetch all questions """
     listed_questions = []
-    if not questions_list:
-        return jsonify({"message":"No questions exist on this platform"}), 404
     for question in questions_list:
         #return dictionary that can be jsonified easily
         questions = question.listed_question()  
