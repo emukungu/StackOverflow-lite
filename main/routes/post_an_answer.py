@@ -16,7 +16,7 @@ def answer(questionId):
                 answer = Answer(user_id, questionId, qn_answer)
                 {questionId:answer.answer_per_question()}
                 answers_list.append({questionId:answer.answer_per_question()})
-                return jsonify({"Successful":"Your answer has been added"}), 201 
+                return jsonify({"Successful":"Your answer has been added", "Results":answers_list}), 201 
         return jsonify({"message": "Question doesnot exist"}), 404                                                   
     return jsonify({"message": "Fill in all the fields"}), 400
 
