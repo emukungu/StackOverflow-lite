@@ -32,6 +32,12 @@ Run the tests
 Run the application to start the server
 * python run.py 
 
+<<<<<<< HEAD
+=======
+Open the browser to view the endpoints with their specifications
+* localhost:5000 
+
+>>>>>>> ft-post-a-question-159866594
 ## Demo
 https://stackoverflow-esther.herokuapp.com/
 
