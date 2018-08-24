@@ -1,4 +1,4 @@
-from .baseRoutes import *
+from .baseRoutes import request, jsonify, json, status, app, questions_list
 
 @app.route('/api/v1/questions/<int:questionId>', methods = ['GET'])
 def question_id(questionId):
@@ -6,7 +6,5 @@ def question_id(questionId):
     for question in questions_list:
         if  questionId == question.question_id():
             question_details = question.question_details()        
-            return jsonify(question_details), 200
-        else:         
-            message = {"message": "The question doesnot exist on this platform"}
-            return message["message"], 404
+            return jsonify(question_details), 200 
+    return jsonify({"message": "The question doesnot exist on this platform"}), 404
