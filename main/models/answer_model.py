@@ -10,5 +10,8 @@ class Answer(object):
                 "answer": self.answer,
                 "user_id": self.user_id
                 }
-
         return self.particular_answer
+
+    def qn_id(self):
+        self._id = self.question_id
+        return self._id

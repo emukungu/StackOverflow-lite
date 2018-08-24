@@ -11,7 +11,6 @@ def post():
             return jsonify({"error":"Invalid inputs"}), 400
         title= post_data["title"]
         desc = post_data['description']
-        # date= post_data['date']
         post_date = str(date.today())
         user_id = post_data['user_id']
         # empty input fields
