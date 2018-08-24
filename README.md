@@ -20,6 +20,9 @@ POST api/v1/questions/questionId/answer| Post an answer
 Clone repository from link below
 * git clone `https://github.com/emukungu/StackOverflow-lite.git`
 
+Change directory
+* cd StackOverflow-lite
+
 Setup virtual environment
 * mkvirtualenv 'virtualenv_name' 
 
