@@ -22,7 +22,7 @@ Clone repository from link below
 * git clone `https://github.com/emukungu/StackOverflow-lite.git`
 
 Setup virtual environment
-* mkvirtualenv 'virtualenv_name' 
+* mkvirtualenv 'venv' 
 
 Install project requirements
 * pip install -r requirements.txt
