@@ -35,9 +35,6 @@ Run the application to start the server
 ## Demo
 https://stackoverflow-esther.herokuapp.com/
 
-### Demo
-https://stackoverflow-esther.herokuapp.com/
-
 ### License
 MIT License
 
