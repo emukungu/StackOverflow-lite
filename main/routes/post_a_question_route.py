@@ -18,6 +18,9 @@ def post():
             return jsonify({"message":"Fill in the missing fields"}), 400
         if type(title) is not str or type(desc) is not str or type(user_id) is not int:
             return jsonify({"message":"Enter the correct values"}), 400
+        for question in questions_list:
+            if title == question.title and desc == question.description :
+                return jsonify({"message":"Question already exists"}), 400
         #create an object from it
         question =  Question(title, desc, user_id, post_date)
         # store the object in a list

@@ -21,3 +21,9 @@ class Test_post_a_question(TestBase):
         self.assertEqual(response.status_code, 400)
         print(bytes(response.data))
         self.assertIn("Enter the correct values", response.data.decode())
+
+    def test_duplicate_data(self):
+        self.app.post('/api/v1/questions', data = self.data, content_type="application/json")
+        response = self.app.post('/api/v1/questions', data = self.data, content_type="application/json")
+        self.assertEqual(response.status_code, 400)
+        self.assertIn("Question already exists", response.data.decode()) 

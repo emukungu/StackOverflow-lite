@@ -29,5 +29,5 @@ def get_question_answers(questionId):
         for k, v in answers.items():
             if k == questionId:
                 specific_question_answers.append(v)
-    return jsonify(specific_question_answers), 200
+    return jsonify({k:specific_question_answers}), 200
     
