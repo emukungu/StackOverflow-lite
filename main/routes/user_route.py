@@ -31,8 +31,7 @@ def get_all_users():
     listed_users = []
     
     if users_list == []:
-        message = {"message":"No questions exist on this platform"}
-        return message["message"], 404
+        return jsonify({"message":"No users exist."}), 404
     else:
         for user in users_list:
         #return dictionary that can be jsonified easily
