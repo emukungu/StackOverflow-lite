@@ -14,3 +14,7 @@ class Test_specific_question(TestBase):
         self.app.post('/api/v1/questions', data= self.data, content_type="application/json")
         response = self.app.get('/api/v1/questions/1')
         self.assertEqual(response.status_code, 200)
+    
+    def test_wrong_method(self):
+        response = self.app.post('/api/v1/questions/1')
+        self.assertEqual(response.status_code, 404)
