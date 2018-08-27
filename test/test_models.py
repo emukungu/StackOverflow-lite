@@ -26,18 +26,18 @@ class TestQuestion(unittest.TestCase):
 
 class TestAnswer(unittest.TestCase):
     def setUp(self):
-        self.answer = Answer("1", "1","Uses HTTP")
+        self.answer = Answer(1, 1,"Uses HTTP")
     
     def test__init__(self): 
         """ test if object created is of class Answer """     
         self.assertIsInstance(self.answer, Answer)
 
     def test_answer_per_question(self):
-        self.particular_answer = {
-            "user_id": ("1",),
+        self.answer.particular_answer = {
+            "user_id": 1,
             "answer": "Uses HTTP"            
         }
-        self.assertEqual(self.answer.answer_per_question(), self.particular_answer)
+        self.assertEqual(self.answer.answer_per_question(), self.answer.particular_answer)
 
 
 class TestUser(unittest.TestCase):
@@ -50,7 +50,7 @@ class TestUser(unittest.TestCase):
 
     def test_useraccount(self):
         self.user.user_account = {
-            "user_id": "1",
+            "user_id": 1,
             "username": "esther"            
         }
         self.assertEqual(self.user.useraccount(), self.user.user_account)

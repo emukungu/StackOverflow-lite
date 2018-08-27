@@ -4,12 +4,16 @@ from .baseRoutes import request, jsonify, json, status, answers_list, app, Answe
 def answer(questionId):
     """This endpoint will post an answer to a specific question """
     answer_data = request.get_json()
+
     if not answer_data:
         return jsonify({"error":"All data is required"}), 400
+
     qn_answer = answer_data['answer']
     user_id = answer_data['user_id']     
+
     if type(qn_answer) is not str or type(user_id) is not int:
         return jsonify({"error":"Enter the correct values"}), 400  
+
     if qn_answer and user_id:
         for question in questions_list:
             if question.qn_id == questionId:
@@ -17,14 +21,19 @@ def answer(questionId):
                 {questionId:answer.answer_per_question()}
                 answers_list.append({questionId:answer.answer_per_question()})
                 return jsonify({"Successful":"Your answer has been added", "Results":answers_list}), 201 
-        return jsonify({"message": "Question doesnot exist"}), 404                                                   
+        return jsonify({"message": "Question doesnot exist"}), 404    
+
     return jsonify({"message": "Fill in all the fields"}), 400
+
 
 @app.route('/api/v1/questions/<int:questionId>/answer', methods= ['GET'])
 def get_question_answers(questionId):
+    """ This endpoint will get answers to a specific question"""
+
     specific_question_answers = []
     if not answers_list:
         return jsonify({"message": "No answers yet"}), 404
+
     for answers in answers_list:
         for k, v in answers.items():
             if k == questionId:
