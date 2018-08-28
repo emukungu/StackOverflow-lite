@@ -6,6 +6,7 @@ from ..models.user_model import User
 from flask_api import status
 from main import app
 from datetime import date
+# from db import db_connection
 
 questions_list = []
 answers_list = []
