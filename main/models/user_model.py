@@ -1,7 +1,7 @@
 class User(object):
     _id  = 0
 
-    def __init__(self,username,password,email):
+    def __init__(self,username, password, email):
         self.username = username
         self.password = password
         self.email = email
@@ -11,6 +11,6 @@ class User(object):
     def useraccount(self):
         self.user_account = {
             "username": self.username,
-            "user_id": self.user_id
+            "email": self.email
         }
         return self.user_account

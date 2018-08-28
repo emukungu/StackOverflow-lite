@@ -15,14 +15,13 @@ class TestQuestion(unittest.TestCase):
 
     def test_question_account(self):
         self.question_details = {
-            "title": self.question.title,
-            "description":self.question.description,
-            "user_id": self.question.user_id,
-            "date": self.question.date,
-            "qn_id": self.question.qn_id, 
-            
+            "title": "REST",
+            "description":"Introduction",
+            "user_id": 1,
+            "date": "2018-03-04"
         }
-        self.assertEqual(self.question.question_details(), self.question_details)
+        self.assertEquals(self.question.question_details(), self.question_details)
+        
 
 class TestAnswer(unittest.TestCase):
     def setUp(self):
@@ -33,11 +32,20 @@ class TestAnswer(unittest.TestCase):
         self.assertIsInstance(self.answer, Answer)
 
     def test_answer_per_question(self):
+<<<<<<< HEAD
         self.answer.particular_answer = {
             "user_id": 1,
             "answer": "Uses HTTP"            
         }
         self.assertEqual(self.answer.answer_per_question(), self.answer.particular_answer)
+=======
+        self.particular_answer = {
+            "user_id": 1,
+            "answer": "Uses HTTP"            
+        }
+        self.assertEquals(self.answer.answer_per_question(), self.particular_answer)
+        
+>>>>>>> ft-post-a-question-159866594
 
 
 class TestUser(unittest.TestCase):
@@ -49,8 +57,13 @@ class TestUser(unittest.TestCase):
         self.assertIsInstance(self.user, User)
 
     def test_useraccount(self):
+<<<<<<< HEAD
         self.user.user_account = {
             "user_id": 1,
+=======
+        self.user_account = {
+            "email": "esther@gmail.com",
+>>>>>>> ft-post-a-question-159866594
             "username": "esther"            
         }
-        self.assertEqual(self.user.useraccount(), self.user.user_account)
+        self.assertEqual(self.user.useraccount(), self.user_account)
