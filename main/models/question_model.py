@@ -15,8 +15,7 @@ class Question(object):
             'title': self.title,
             'description': self.description,
             'user_id': self.user_id,
-            'date': self.date,
-            'qn_id': self.qn_id
+            'date': self.date
         }
         return self.question_account
 

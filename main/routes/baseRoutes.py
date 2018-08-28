@@ -11,7 +11,7 @@ answers_list = []
 
 url = "http://localhost"
 
+
 def error():
     if not (url + '/api/v1/questions/<int:questionId>'):
-        return jsonify({"message":"Please enter the correct URL"})
-
+        return jsonify({"message": "Please enter the correct URL"})
