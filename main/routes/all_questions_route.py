@@ -1,14 +1,19 @@
-from .baseRoutes import request, jsonify, status, app, questions_list
+from .baseRoutes import request, jsonify, status, app, Question, questions_list, cur, conn
 
 
 @app.route('/api/v1/questions', methods = ['GET'])
 def get_all_questions():     
     """This endpoint will fetch all questions """
-    listed_questions = []
-    if questions_list == []:
-        return jsonify({"message":"No questions exist on this platform"}), 404
-    for question in questions_list:
-        #return dictionary that can be jsonified easily
-        questions = question.listed_question()  
-        listed_questions.append(questions)
-    return jsonify(listed_questions), 200
+    all_questions = []
+    query = "SELECT * FROM questions;" 
+    cur.execute(query)
+    returned_all_questions = cur.fetchall()
+
+    if not returned_all_questions:
+        return jsonify({"message":"No questions exist."}) 
+
+    for i in returned_all_questions:
+        question_object = Question(i[1], i[2], i[4], i[3])
+        question_details = question_object.listed_question()
+        all_questions.append(question_details)
+    return jsonify({"Results": all_questions})
