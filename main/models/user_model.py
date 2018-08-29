@@ -11,6 +11,8 @@ class User(object):
     def useraccount(self):
         self.user_account = {
             "username": self.username,
-            "email": self.email
+            "email": self.email,
+            "password":self.password
         }
         return self.user_account
+    

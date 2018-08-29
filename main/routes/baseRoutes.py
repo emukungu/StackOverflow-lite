@@ -6,7 +6,11 @@ from ..models.user_model import User
 from flask_api import status
 from main import app
 from datetime import date
-# from db import db_connection
+from ..db import create_connection
+select = create_connection()
+cur = select["cursor"]
+conn = select["connect"]
+
 
 questions_list = []
 answers_list = []

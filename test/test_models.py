@@ -51,6 +51,7 @@ class TestUser(unittest.TestCase):
 
         self.user_account = {
             "email": "esther@gmail.com",
-            "username": "esther"            
+            "username": "esther",
+            "password":"123password"           
         }
         self.assertEqual(self.user.useraccount(), self.user_account)

@@ -1,4 +1,4 @@
-from .baseRoutes import request, jsonify, json, status, answers_list, app, Answer, questions_list
+from .baseRoutes import request, jsonify, json, status, answers_list, app, Answer, questions_list, cur,conn
 
 @app.route('/api/v1/questions/<int:questionId>/answer', methods= ['POST'])
 def answer(questionId):
@@ -16,11 +16,14 @@ def answer(questionId):
         return jsonify({"error":"Enter the correct values"}), 400  
 
     if qn_answer and user_id:
-        for question in questions_list:
-            if question.qn_id == questionId:
-                answer = Answer(user_id, questionId, qn_answer)
-                answers_list.append({questionId:answer.answer_per_question()})
-                return jsonify({"Successful":"Your answer has been added", "Results":answers_list}), 201 
+        cur.execute("SELECT question_id FROM questions WHERE question_id = %s;", (questionId,))
+        qn_to_be_answered = cur.fetchone()[0]
+        print(qn_to_be_answered)
+        if qn_to_be_answered == questionId:
+            cur.execute("INSERT INTO answers (answer, question_id) VALUES(%s, %s);", (qn_answer, qn_to_be_answered))
+            conn.commit()
+            # answers_list.append({questionId:answer.answer_per_question()})
+            return jsonify({"Successful":"Your answer has been added", "Results":qn_to_be_answered}), 201 
 
         return jsonify({"message": "Question doesnot exist"}), 404    
 

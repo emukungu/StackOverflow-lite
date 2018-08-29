@@ -1,8 +1,8 @@
 import psycopg2
 # from .routes.post_a_question_route import post
 
-question = """CREATE TABLE questions(
-    question_id INT PRIMARY KEY NOT NULL,
+question = """CREATE TABLE IF NOT EXISTS questions(
+    question_id SERIAL PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
     question_description VARCHAR(255) NOT NULL,
     date_created TIMESTAMP NOT NULL,
@@ -12,7 +12,7 @@ question = """CREATE TABLE questions(
         ON UPDATE NO ACTION ON DELETE NO ACTION
 );"""
 
-answer = """CREATE TABLE answers(
+answer = """CREATE TABLE IF NOT EXISTS answers(
     answer VARCHAR (255) NOT NULL,
     user_id INT NOT NULL,
     question_id INT NOT NULL,
@@ -24,30 +24,29 @@ answer = """CREATE TABLE answers(
         ON UPDATE NO ACTION ON DELETE NO ACTION
 );"""
 
-user ="""CREATE TABLE users(
-    username VARCHAR(255) NOT NULL,
-    email VARCHAR(255) NOT NULL,
+user ="""CREATE TABLE IF NOT EXISTS users(
+    username VARCHAR(255) UNIQUE NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
     user_password VARCHAR(255) NOT NULL,
-    user_id INT PRIMARY KEY NOT NULL
+    user_id SERIAL PRIMARY KEY
 );"""
         
 
-def db_connection():
+def create_connection():
     """ Connect to database"""    
-    con = psycopg2.connect(host="localhost", database="trial5", user="postgres", password="postgres")
+    con = psycopg2.connect(host="localhost", database="crud", user="postgres", password="postgres")
     cursor = con.cursor()
     cursor.execute(user)     
     cursor.execute(question)
     cursor.execute(answer)
-    con.commit()    
-    cursor.close()
-    con.close()
+    con.commit() 
+    selector = {"cursor": cursor,
+                 "connect": con
+                }
+    return selector   
+    
+    
 
-def another_connection():
-    conn = psycopg2.connect(host="localhost", database="again", user="postgres", password="postgres")
-    cur = conn.cursor()
-    return cur
 
 
-db_connection()
 
