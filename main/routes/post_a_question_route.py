@@ -1,6 +1,5 @@
-from .baseRoutes import request, jsonify, json, status, Question, app, questions_list, date
-from ..db import another_connection
-cur = another_connection()
+from .baseRoutes import request, jsonify, json, status, Question, app, questions_list, date, cur, conn
+
 
 @app.route('/api/v1/questions', methods = ['POST'])
 def post():
@@ -25,31 +24,19 @@ def post():
         if title == "" or desc == "" or user_id is None:
             return jsonify({"message":"Fill in the missing fields"}), 400
 
-        elif type(title) is not str or type(desc) is not str or type(user_id) is not int:
-            return jsonify({"message":"Enter the correct values"}), 400
-            
-
         if type(title) is not str or type(desc) is not str or type(user_id) is not int:
-            return jsonify({"message":"Enter the correct values"}), 400
+            return jsonify({"message":"Enter the correct values"}), 400   
 
-        for question in questions_list:
-            if title == question.title and desc == question.description :
-                return jsonify({"message":"Question already exists"}), 400
-                
+        query = "SELECT title, question_description FROM questions WHERE title = %s AND question_description = %s;"
+        cur.execute(query, (title, desc))
+        existing_questions = cur.fetchall()
+        for i in existing_questions:
+            if i[1] == title and i[2] == desc:
+                return jsonify({"message":"Question already exists"}), 400             
 
-        #create an object from it
-    #     cur.execute("INSERT INTO test (num, data) VALUES (%s, %s)",
-    #  (100, "abc'def"))
-        new_question = "INSERT INTO question (title, question_description, date_created, user_id) VALUES(%s, %s, %s, %s)"
+        new_question = "INSERT INTO questions (title, question_description, date_created, user_id) VALUES(%s, %s, %s, %s);"
         cur.execute(new_question, (title, desc, post_date, user_id))
-        # conn.commit()
-
-        # question =  Question(title, desc, user_id, post_date)
-
-
-        # store the object in a list
-
-        # questions_list.append(question)
-        # return jsonify({"Successful":"Your question has been posted"}), 201               
+        conn.commit()
+        return jsonify({"Successful":"Your question has been added to database"}), 201               
 
 
