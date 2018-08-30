@@ -1,11 +1,13 @@
 from .baseRoutes import request, jsonify, json, status, Question, app, questions_list, date, cur, conn
-# from login import login
+from .login import jwt_required, get_jwt_identity, login
 
 
 @app.route('/api/v1/questions', methods = ['POST'])
+@jwt_required
 def post():
     """This endpoint will post a question """
     if request.method == 'POST':
+        current_user_id = get_jwt_identity()["user_id"]
 
         #data from the client  
         post_data = request.get_json()
@@ -18,7 +20,7 @@ def post():
         title= post_data["title"]
         desc = post_data['description']
         post_date = str(date.today())
-        user_id = post_data['user_id']
+        user_id = current_user_id
         # question_id = post_data['question_id']
 
         # empty input fields

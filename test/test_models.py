@@ -41,7 +41,7 @@ class TestAnswer(unittest.TestCase):
 
 class TestUser(unittest.TestCase):
     def setUp(self):
-        self.user = User("esther","123password","esther@gmail.com")
+        self.user = User(1,"esther","123password","esther@gmail.com")
     
     def test__init__(self):  
         """ test if object created is of class User """    

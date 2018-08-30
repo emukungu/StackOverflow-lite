@@ -10,7 +10,7 @@ from .db import *
 
 class Create_connection:
     def __init__(self):
-        self.con = psycopg2.connect(host="localhost", database="trial6", user="postgres", password="postgres")
+        self.con = psycopg2.connect(host="localhost", database="stack", user="postgres", password="postgres")
         self.cursor = self.con.cursor()
         self.cursor.execute(user)     
         self.cursor.execute(question)

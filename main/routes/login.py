@@ -1,17 +1,10 @@
 from .baseRoutes import request, jsonify, json, status, app, User, cur, conn
-import jwt
-from functools import wraps
+from flask_jwt_extended import JWTManager, jwt_required, create_access_token, get_jwt_identity
 
 signature = app.config["SECRET_KEY"] = "bootcamp"
 
 # create decorator function that decodes token
-def authentication_required(v):
-    wraps(v)
-    def decode_token(*args, **kwargs):
-        # token =
-        return v(*args, **kwargs)
-
-    return decode_token
+jwt = JWTManager(app)
 
 @app.route('/api/v1/login', methods = ['POST'])
 def login():
@@ -32,15 +25,17 @@ def login():
     returned_user = cur.fetchall()
 
     if not returned_user:
-        return jsonify({"message":"Wrong login credentials "}), 405
+        return jsonify({"message":"User doesnot exist on this platform"}), 405
     
-    current_user = User(returned_user[0][0], returned_user[0][1], returned_user[0][2])
+    current_user = User(returned_user[0][0], returned_user[0][1], returned_user[0][2], returned_user[0][3])
+    
     auth_username = current_user.username
     auth_user_id = current_user.user_id
 
-    token = jwt.encode({"username":auth_username, "user_id":auth_user_id,}, signature)
+    token = create_access_token(identity = {"user_id": auth_user_id, "username":auth_username})
     results = { "message": username + " exists",
-                "token": token.decode('utf-8')
+                "token": token,
+                "user_id": auth_user_id
     }
     return jsonify(results), 200 
 
@@ -48,3 +43,7 @@ def login():
 @app.route('/api/v1/login', methods = ['GET'])
 def wrong_login_method():
     return jsonify({"message":"Please enter the correct URL method"}), 404
+
+
+# def retrieve_userid_from_token():
+#     user_id = get_jwt_identity()
