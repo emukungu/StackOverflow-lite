@@ -11,10 +11,11 @@ def question_id(questionId):
 
         if not specific_question:
             return jsonify({"message": "The question doesnot exist on this platform"}), 404
-    
+        cur.execute("SELECT * FROM answers WHERE question_id = %s", (questionId,))
+        result = cur.fetchall()
         for i in specific_question:
-            specific_qn_details = Question(i[1], i[2], i[4], i[3])
-        return jsonify({"Results":specific_qn_details.question_details()})
+            specific_qn_details = Question(i[1], i[2], i[4], i[3], i[0])
+        return jsonify({"Question":specific_qn_details.title , "Answers":result}), 200
     
     elif request.method == 'POST':
         return jsonify({"message":"Please enter the correct URL method"}), 404

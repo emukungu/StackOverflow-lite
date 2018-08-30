@@ -1,8 +1,8 @@
 from .baseRoutes import request, jsonify, json, status, app, User, cur, conn
 
 
-@app.route('/api/v1/register', methods = ['POST'])
-def register():
+@app.route('/api/v1/signup', methods = ['POST'])
+def signup():
     """ This endpoint will register a user in the database list """
     if request.method == 'POST':        
         #data from the client

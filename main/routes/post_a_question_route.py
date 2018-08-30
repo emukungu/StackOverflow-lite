@@ -27,7 +27,7 @@ def post():
         if title == "" or desc == "" or user_id is None:
             return jsonify({"message":"Fill in the missing fields"}), 400
 
-        if type(title) is not str or type(desc) is not str or type(user_id) is not int:
+        if type(title) is not str or type(desc) is not str:
             return jsonify({"message":"Enter the correct values"}), 400   
 
         query = "SELECT title, question_description FROM questions WHERE title = %s AND question_description = %s;"

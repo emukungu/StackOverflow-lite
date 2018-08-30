@@ -34,8 +34,8 @@ def answer(questionId):
     return jsonify({"message": "Fill in all the fields"}), 400
 
 
-@app.route('/api/v1/questions/<int:questionId>/answer', methods= ['GET'])
-def get_question_answers(questionId):
+@app.route('/api/v1/answers', methods= ['GET'])
+def get_all_answers():
     """ This endpoint will get answers to a specific question"""
     all_answers = []
     query = "SELECT * FROM answers;" 

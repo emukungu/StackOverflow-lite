@@ -17,13 +17,18 @@ class TestBase(unittest.TestCase):
         self.app = app.test_client()
         self.data = json.dumps({"title": "REST",
                             "description": "Introduction",
-                            "user_id": 1
+                            "user_id": 1,
+                            "qn-id": 1
                             })
         self.empty_data = json.dumps({"title": "",
                             "description": "",
-                            "user_id": None
+                            "user_id": None,
+                            "qn_id": None
                             })
         self.incorrect_data = json.dumps({"title": 1,
                             "description": 3,
-                            "user_id": "yes"
+                            "user_id": "yes",
+                            "qn_id":"yes"
+
                             })
+        # self data2 = [[]]
