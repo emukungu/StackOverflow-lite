@@ -1,5 +1,3 @@
-import psycopg2
-# from .routes.post_a_question_route import post
 
 question = """CREATE TABLE IF NOT EXISTS questions(
     question_id SERIAL PRIMARY KEY,
@@ -32,18 +30,7 @@ user ="""CREATE TABLE IF NOT EXISTS users(
 );"""
         
 
-def create_connection():
-    """ Connect to database"""    
-    con = psycopg2.connect(host="localhost", database="crud", user="postgres", password="postgres")
-    cursor = con.cursor()
-    cursor.execute(user)     
-    cursor.execute(question)
-    cursor.execute(answer)
-    con.commit() 
-    selector = {"cursor": cursor,
-                 "connect": con
-                }
-    return selector   
+ 
     
     
 

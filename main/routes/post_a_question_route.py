@@ -1,4 +1,5 @@
 from .baseRoutes import request, jsonify, json, status, Question, app, questions_list, date, cur, conn
+# from login import login
 
 
 @app.route('/api/v1/questions', methods = ['POST'])
@@ -31,7 +32,7 @@ def post():
         cur.execute(query, (title, desc))
         existing_questions = cur.fetchall()
         for i in existing_questions:
-            if i[1] == title and i[2] == desc:
+            if i[0] == title and i[1] == desc:
                 return jsonify({"message":"Question already exists"}), 400             
 
         new_question = "INSERT INTO questions (title, question_description, date_created, user_id) VALUES(%s, %s, %s, %s);"

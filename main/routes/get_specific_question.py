@@ -1,4 +1,4 @@
-from .baseRoutes import request, jsonify, json, status, app, questions_list, url, cur, conn, Question
+from .baseRoutes import request, jsonify, json, status, app, questions_list, cur, conn, Question
 
 @app.route('/api/v1/questions/<int:questionId>', methods = ['GET', 'POST'])
 def question_id(questionId):
