@@ -10,7 +10,10 @@ API endpoint | Functionality
 GET /api/v1/questions| Get all questions
 POST /api/v1/questions| Post a question
 GET /api/v1/questions/questionId| Get a specific question
-POST api/v1/questions/questionId/answer| Post an answer
+POST /api/v1/questions/questionId/answer| Post an answer
+DELETE /api/v1/questions/questionId| Delete a question
+POST /api/v1/auth/signup| Register a user
+POST /api/v1/auth/login| Login a user
 
 ## Technologies Used
 * Python 3.6
@@ -29,11 +32,14 @@ Setup virtual environment
 Install project requirements
 * pip install -r requirements.txt
 
-Run the tests
-* nosetests 
+Create a database in postgresql
+* create database database_name;
 
 Run the application to start the server
 * python run.py 
+
+Run the tests
+* nosetests 
 
 Open the browser to view the endpoints with their specifications
 * localhost:5000 
