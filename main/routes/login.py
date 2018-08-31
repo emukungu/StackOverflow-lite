@@ -6,7 +6,7 @@ signature = app.config["SECRET_KEY"] = "bootcamp"
 # create decorator function that decodes token
 jwt = JWTManager(app)
 
-@app.route('/api/v1/login', methods = ['POST'])
+@app.route('/api/v1/auth/login', methods = ['POST'])
 def login():
     login_data = request.get_json()
     
@@ -40,7 +40,7 @@ def login():
     return jsonify(results), 200 
 
 
-@app.route('/api/v1/login', methods = ['GET'])
+@app.route('/api/v1/auth/login', methods = ['GET'])
 def wrong_login_method():
     return jsonify({"message":"Please enter the correct URL method"}), 404
 

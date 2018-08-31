@@ -1,7 +1,7 @@
 from .baseRoutes import request, jsonify, json, status, app, User, cur, conn
 
 
-@app.route('/api/v1/signup', methods = ['POST'])
+@app.route('/api/v1/auth/signup', methods = ['POST'])
 def signup():
     """ This endpoint will register a user in the database list """
     if request.method == 'POST':        
@@ -37,7 +37,7 @@ def signup():
         return jsonify({"message":"You have been successfully registered."}), 201
 
 
-@app.route('/api/v1/signup', methods = ['GET'])
+@app.route('/api/v1/auth/signup', methods = ['GET'])
 def get_all_users():     
     """This endpoint will fetch all users """
     query = "SELECT * FROM users;" 

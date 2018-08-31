@@ -33,5 +33,5 @@ class TestBase(unittest.TestCase):
                             })
 
         self.login_data = json.dumps({ "username":"esther",
-                                            "password":"123password"
+                                        "password":"123password"
                             })
