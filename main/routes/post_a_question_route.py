@@ -4,7 +4,7 @@ from .login import jwt_required, get_jwt_identity, login
 
 @app.route('/api/v1/questions', methods = ['POST'])
 @jwt_required
-def post():
+def post_a_question():
     """This endpoint will post a question """
     if request.method == 'POST':
         current_user_id = get_jwt_identity()["user_id"]
@@ -21,8 +21,7 @@ def post():
         desc = post_data['description']
         post_date = str(date.today())
         user_id = current_user_id
-        # question_id = post_data['question_id']
-
+        
         # empty input fields
         if title == "" or desc == "" or user_id is None:
             return jsonify({"message":"Fill in the missing fields"}), 400

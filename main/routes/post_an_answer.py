@@ -1,12 +1,11 @@
 from .baseRoutes import request, jsonify, json, status, answers_list, app, Answer, questions_list, cur,conn
 from .login import jwt_required, get_jwt_identity, login
 
-@app.route('/api/v1/questions/<int:questionId>/answer', methods= ['POST'])
+@app.route('/api/v1/questions/<int:questionId>/answers', methods= ['POST'])
 @jwt_required
-def answer(questionId):
+def answers(questionId):
     """This endpoint will post an answer to a specific question """
     current_user_id = get_jwt_identity()["user_id"]
-    print(current_user_id)
     answer_data = request.get_json()
 
     if not answer_data:
@@ -21,14 +20,22 @@ def answer(questionId):
 
     if qn_answer and user_id:
         cur.execute("SELECT question_id FROM questions WHERE question_id = %s;", (questionId,))
-        qn_to_be_answered = cur.fetchone()[0]
-        print(qn_to_be_answered)
-        if qn_to_be_answered == questionId:
-            query = "INSERT INTO answers (answer, question_id, user_id) VALUES(%s, %s, %s);"
-            cur.execute(query, (qn_answer, qn_to_be_answered, user_id))
-            conn.commit()
-            return jsonify({"Successful":"Your answer has been added", "QuestionId":qn_to_be_answered}), 201 
+        qn_to_be_answered = cur.fetchall()
 
+        for row in qn_to_be_answered:     
+            if row[0] == questionId:
+                cur.execute("SELECT answer FROM answers WHERE question_id = %s;", (questionId,))
+                repeated_answer = cur.fetchall()
+
+                for row in repeated_answer:
+                    if row[0] == qn_answer:
+                        print(repeated_answer)
+                        return jsonify({"message":"Answer already exists"}), 400
+                        
+                query = "INSERT INTO answers (answer, question_id, user_id) VALUES(%s, %s, %s);"
+                cur.execute(query, (qn_answer, questionId, user_id))
+                conn.commit()
+                return jsonify({"Successful":"Your answer has been added", "QuestionId":questionId}), 201      
         return jsonify({"message": "Question doesnot exist"}), 404    
 
     return jsonify({"message": "Fill in all the fields"}), 400

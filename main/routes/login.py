@@ -45,5 +45,3 @@ def wrong_login_method():
     return jsonify({"message":"Please enter the correct URL method"}), 404
 
 
-# def retrieve_userid_from_token():
-#     user_id = get_jwt_identity()

@@ -37,7 +37,7 @@ def signup():
         return jsonify({"message":"You have been successfully registered."}), 201
 
 
-@app.route('/api/v1/register', methods = ['GET'])
+@app.route('/api/v1/signup', methods = ['GET'])
 def get_all_users():     
     """This endpoint will fetch all users """
     query = "SELECT * FROM users;" 

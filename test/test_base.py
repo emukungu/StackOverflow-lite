@@ -6,7 +6,8 @@ from flask import json, jsonify
 questions_list = [{
         "description":"Introduction",
         "title":"REST",
-        "user_id":1
+        "user_id":1,
+        "qn_id": 1
     }]
 
 questions_list2 = []
@@ -18,7 +19,7 @@ class TestBase(unittest.TestCase):
         self.data = json.dumps({"title": "REST",
                             "description": "Introduction",
                             "user_id": 1,
-                            "qn-id": 1
+                            "qn_id": 1
                             })
         self.empty_data = json.dumps({"title": "",
                             "description": "",
@@ -29,6 +30,8 @@ class TestBase(unittest.TestCase):
                             "description": 3,
                             "user_id": "yes",
                             "qn_id":"yes"
-
                             })
-        # self data2 = [[]]
+
+        self.login_data = json.dumps({ "username":"esther",
+                                            "password":"123password"
+                            })
