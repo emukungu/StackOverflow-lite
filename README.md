@@ -18,6 +18,7 @@ POST /api/v1/auth/login| Login a user
 ## Technologies Used
 * Python 3.6
 * Flask
+* Postgresql
 
 ## Setting up the project
 Clone repository from link below
