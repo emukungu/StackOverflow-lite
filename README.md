@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/emukungu/StackOverflow-lite.svg?branch=ft-post-a-question-%23159866594)](https://travis-ci.org/emukungu/StackOverflow-lite) [![Coverage Status](https://coveralls.io/repos/github/emukungu/StackOverflow-lite/badge.svg?branch=ft-post-a-question-%23159866594)](https://coveralls.io/github/emukungu/StackOverflow-lite?branch=ft-post-a-question-%23159866594) [![Maintainability](https://api.codeclimate.com/v1/badges/a99a88d28ad37a79dbf6/maintainability)](https://codeclimate.com/github/codeclimate/codeclimate/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/a99a88d28ad37a79dbf6/test_coverage)](https://codeclimate.com/github/codeclimate/codeclimate/test_coverage)
+[![Build Status](https://travis-ci.org/emukungu/StackOverflow-lite.svg?branch=database)](https://travis-ci.org/emukungu/StackOverflow-lite) [![Coverage Status](https://coveralls.io/repos/github/emukungu/StackOverflow-lite/badge.svg?branch=databse)](https://coveralls.io/github/emukungu/StackOverflow-lite?branch=ft-post-a-question-%23159866594) [![Maintainability](https://api.codeclimate.com/v1/badges/a99a88d28ad37a79dbf6/maintainability)](https://codeclimate.com/github/codeclimate/codeclimate/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/a99a88d28ad37a79dbf6/test_coverage)](https://codeclimate.com/github/codeclimate/codeclimate/test_coverage)
 
 # StackOverflow-lite
 StackOverflow-lite is a platform where people can ask questions and provide answers.
@@ -10,11 +10,15 @@ API endpoint | Functionality
 GET /api/v1/questions| Get all questions
 POST /api/v1/questions| Post a question
 GET /api/v1/questions/questionId| Get a specific question
-POST api/v1/questions/questionId/answer| Post an answer
+POST /api/v1/questions/questionId/answer| Post an answer
+DELETE /api/v1/questions/questionId| Delete a question
+POST /api/v1/auth/signup| Register a user
+POST /api/v1/auth/login| Login a user
 
 ## Technologies Used
 * Python 3.6
 * Flask
+* Postgresql
 
 ## Setting up the project
 Clone repository from link below
@@ -29,11 +33,14 @@ Setup virtual environment
 Install project requirements
 * pip install -r requirements.txt
 
-Run the tests
-* nosetests 
+Create a database in postgresql
+* create database database_name;
 
 Run the application to start the server
 * python run.py 
+
+Run the tests
+* nosetests 
 
 Open the browser to view the endpoints with their specifications
 * localhost:5000 

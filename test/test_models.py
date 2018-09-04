@@ -7,7 +7,7 @@ class TestQuestion(unittest.TestCase):
     
     def setUp(self):
         """create an object of class question """
-        self.question = Question("REST", "Introduction", 1, "2018-03-04")
+        self.question = Question("REST", "Introduction", 1, "2018-03-04", 1)
     
     def test__init__(self): 
         """ test if object created is of class Question """     
@@ -18,9 +18,10 @@ class TestQuestion(unittest.TestCase):
             "title": "REST",
             "description":"Introduction",
             "user_id": 1,
-            "date": "2018-03-04"
+            "date": "2018-03-04",
+            "qn_id": 1
         }
-        self.assertEquals(self.question.question_details(), self.question_details)
+        self.assertEqual(self.question.listed_question(), self.question_details)
         
 
 class TestAnswer(unittest.TestCase):
@@ -41,7 +42,7 @@ class TestAnswer(unittest.TestCase):
 
 class TestUser(unittest.TestCase):
     def setUp(self):
-        self.user = User("esther","123password","esther@gmail.com")
+        self.user = User(1,"esther","123password","esther@gmail.com")
     
     def test__init__(self):  
         """ test if object created is of class User """    
@@ -51,6 +52,8 @@ class TestUser(unittest.TestCase):
 
         self.user_account = {
             "email": "esther@gmail.com",
-            "username": "esther"            
+            "username": "esther",
+            "password":"123password",
+            "user_id" : 1    
         }
         self.assertEqual(self.user.useraccount(), self.user_account)
