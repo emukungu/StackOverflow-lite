@@ -45,7 +45,7 @@ def get_all_users():
     returned_all_users = cur.fetchall()
     if not returned_all_users:
         return jsonify({"message":"No users exist."}) 
-    return jsonify({"message":"All users", "Results":returned_all_users}), 200
+    return jsonify({"All users":returned_all_users}), 200
     
     
 

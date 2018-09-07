@@ -34,7 +34,7 @@ def post_a_question():
         existing_questions = cur.fetchall()
         for i in existing_questions:
             if i[0] == title and i[1] == desc:
-                return jsonify({"message":"Question already exists"}), 400             
+                return jsonify({"message":"Question already exists"}), 409            
 
         new_question = "INSERT INTO questions (title, question_description, date_created, user_id) VALUES(%s, %s, %s, %s);"
         cur.execute(new_question, (title, desc, post_date, user_id))

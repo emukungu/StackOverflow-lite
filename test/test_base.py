@@ -10,16 +10,16 @@ questions_list = [{
         "qn_id": 1
     }]
 
-questions_list2 = []
 
 class TestBase(unittest.TestCase):
-    """ set up a client for the app"""
+    
     def setUp(self):
+        """ set up a client for the app"""
         self.app = app.test_client()
+
+        "setup dummy data to use during testing"
         self.data = json.dumps({"title": "REST",
-                            "description": "Introduction",
-                            "user_id": 1,
-                            "qn_id": 1
+                            "description": "Introduction"
                             })
         self.empty_data = json.dumps({"title": "",
                             "description": "",
