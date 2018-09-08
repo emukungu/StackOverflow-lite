@@ -24,11 +24,7 @@ def signup():
         existing_users = cur.fetchall()
         for i in existing_users:
             if i[0] == username and i[1] == email:
-                return jsonify({"message":"User already exists"}), 400 
-            if i[0] == username and i[1] != email:
-                return jsonify({"message":"username already exists"}), 400
-            if i[0] != username and i[1] == email:
-                return jsonify({"message":"email already exists"}), 400                       
+                return jsonify({"message":"User already exists"}), 403                        
 
         #create an object from it
         new_user = "INSERT INTO users (username, email, user_password) VALUES(%s, %s, %s);"
@@ -39,13 +35,8 @@ def signup():
 
 @app.route('/api/v1/auth/signup', methods = ['GET'])
 def get_all_users():     
-    """This endpoint will fetch all users """
-    query = "SELECT * FROM users;" 
-    cur.execute(query)
-    returned_all_users = cur.fetchall()
-    if not returned_all_users:
-        return jsonify({"message":"No users exist."}) 
-    return jsonify({"All users":returned_all_users}), 200
+    return jsonify({"message":"Please enter the correct URL method"}), 404
+    
     
     
 

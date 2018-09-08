@@ -2,13 +2,10 @@ import unittest
 from flask_api import status
 from main import app
 from flask import json, jsonify
+from main.routes.login import get_jwt_identity
+from main.routes.baseRoutes import cur, conn
 
-# questions_list = [{
-#         "description":"Introduction",
-#         "title":"REST",
-#         "user_id":1,
-#         "qn_id": 1
-#     }]
+
 
 
 class TestBase(unittest.TestCase):
@@ -22,16 +19,37 @@ class TestBase(unittest.TestCase):
                             "description": "Introduction"
                             })
         self.empty_data = json.dumps({"title": "",
-                            "description": "",
-                            "user_id": None,
-                            "qn_id": None
+                            "description": ""
                             })
         self.incorrect_data = json.dumps({"title": 1,
-                            "description": 3,
-                            "user_id": "yes",
-                            "qn_id":"yes"
+                            "description": 3
                             })
-
         self.login_data = json.dumps({ "username":"esther",
                                         "password":"123password"
                             })
+        self.signup_data = json.dumps({"username":"esther",
+                                        "password":"123password",
+                                        "email":"esther@gmail.com"
+                            })
+        self.empty_signup_data = json.dumps({"username":"",
+                                        "password":"",
+                                        "email":""})
+        self.incorrect_signup_data = json.dumps({"username":123,
+                                        "password":123,
+                                        "email":[]
+                            })
+        self.incorrect_login_data = json.dumps({"username":123,
+                                        "password":123
+                            })
+        self.empty_login_data = json.dumps({"username":"",
+                                        "password":""
+                            })
+        # helper functions
+    def login(self):
+        return self.app.post('/api/v1/login', data = self.login_data, content_type ='application/json')
+
+    def tearDown(self):
+        cur.execute("DELETE FROM answers")
+        cur.execute("DELETE FROM questions")
+        cur.execute("DELETE FROM users")
+        conn.commit()
