@@ -3,12 +3,12 @@ from flask_api import status
 from main import app
 from flask import json, jsonify
 
-questions_list = [{
-        "description":"Introduction",
-        "title":"REST",
-        "user_id":1,
-        "qn_id": 1
-    }]
+# questions_list = [{
+#         "description":"Introduction",
+#         "title":"REST",
+#         "user_id":1,
+#         "qn_id": 1
+#     }]
 
 
 class TestBase(unittest.TestCase):

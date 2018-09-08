@@ -1,4 +1,6 @@
 
+query = "CREATE DATABASE crud3;"
+
 question = """CREATE TABLE IF NOT EXISTS questions(
     question_id SERIAL PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
@@ -10,9 +12,12 @@ question = """CREATE TABLE IF NOT EXISTS questions(
 );"""
 
 answer = """CREATE TABLE IF NOT EXISTS answers(
+    answer_id SERIAL PRIMARY KEY,
     answer VARCHAR (255) NOT NULL,
     user_id INT NOT NULL,
     question_id INT NOT NULL,
+    up_vote INT,
+    down_vote INT,
     CONSTRAINT answer_user_id_fkey FOREIGN KEY(user_id)
         REFERENCES users(user_id) MATCH SIMPLE
         ON UPDATE NO ACTION ON DELETE NO ACTION,

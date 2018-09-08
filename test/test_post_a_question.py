@@ -1,5 +1,5 @@
-from .test_base import TestBase, json, questions_list, questions_list2
-# from .main.login import jwt_required, get_jwt_identity, login
+from .test_base import TestBase, json
+
 
 
 class Test_post_a_question(TestBase):
@@ -11,7 +11,8 @@ class Test_post_a_question(TestBase):
         self.assertIn("Fill in the missing fields", response.data.decode())
 
     def test_duplicate_post(self):
-        self.assertEquals(json.loads(self.data), questions_list[0])
+        # self.assertEquals(json.loads(self.data), questions_list[0])
+        self.app.post('/api/v1/questions', data = self.data, content_type="application/json")
         response = self.app.post('/api/v1/questions', data = self.data, content_type="application/json")
         self.assertEqual(response.status_code, 400)
         self.assertIn("Question already exists", response.data.decode())
