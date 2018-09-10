@@ -2,9 +2,7 @@ import unittest
 from flask_api import status
 from main import app
 from flask import json, jsonify
-from main.routes.login import get_jwt_identity
 from main.routes.baseRoutes import cur, conn
-
 
 
 
@@ -44,12 +42,23 @@ class TestBase(unittest.TestCase):
         self.empty_login_data = json.dumps({"username":"",
                                         "password":""
                             })
-        # helper functions
+    
+    # helper functions
     def login(self):
-        return self.app.post('/api/v1/login', data = self.login_data, content_type ='application/json')
+        self.app.post('/api/v1/auth/signup', data = self.signup_data, content_type ='application/json')
+        response = self.app.post('/api/v1/auth/login', data = self.login_data, content_type ='application/json')
+        data = json.loads(response.data.decode())
+        result = data["token"]
+        return result
 
+    def post_a_question(self):
+        response = self.app.post('/api/v1/questions', data=self.data,
+                      headers = {"Content-Type": "application/json",
+                                "Authorization": "Bearer " + self.login()
+                                })
+        return response
     def tearDown(self):
-        cur.execute("DELETE FROM answers")
-        cur.execute("DELETE FROM questions")
-        cur.execute("DELETE FROM users")
+        cur.execute("DELETE FROM answers;")
+        cur.execute("DELETE FROM questions;")
+        cur.execute("DELETE FROM users;")
         conn.commit()
