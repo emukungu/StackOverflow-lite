@@ -1,5 +1,4 @@
 
-query = "CREATE DATABASE crud3;"
 
 question = """CREATE TABLE IF NOT EXISTS questions(
     question_id SERIAL PRIMARY KEY,
