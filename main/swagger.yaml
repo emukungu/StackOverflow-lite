@@ -1,0 +1,45 @@
+swagger: "2.0"
+info:
+  description: StackOverflow-lite is a platform where people can ask questions and provide answers.
+  version: "1.0.0"
+  title: StackOverflow-lite-API
+consumes:
+  - "application/json"
+produces:
+  - "application/json"
+
+basePath: "/api/v1"
+
+# securityDefinitions:
+#   jwt:
+#     type: apikey
+#     name: Authorization
+#     in: header
+#     x-authentication-scheme: Bearer
+
+# security:
+#   - jwt: [] # use the same name as above
+
+# Paths supported by the server application
+paths:
+  /questions:
+    post:
+      operationId: main.routes.post_a_question_route.post
+      tags:
+        - "Questions"
+      summary: ""
+      description: "Add a new question"
+      responses:
+        201:
+          description: "Your question has been added to database"
+          # schema:
+          #   type: "array"
+          #     items:
+          #       properties:
+          #         title:
+          #           type: "string"
+          #         description:
+          #           type: "string"
+          #         user_id:
+          #           type: "string"
+
