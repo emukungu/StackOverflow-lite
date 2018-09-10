@@ -1,8 +1,13 @@
 from flask import Flask
 import psycopg2
+import connexion
+from flask.ext.heroku import Heroku
 
+
+# app = connexion.App(__name__, specification_dir = './')
 app = Flask(__name__)
 
+heroku = Heroku(app)
 
 from .db import *
 
@@ -24,6 +29,7 @@ class Create_connection:
 
 create_connection = Create_connection()
 
+# app.add_api('swagger.yaml')
 
 from .routes.post_a_question_route import post_a_question
 from .routes.all_questions_route import get_all_questions
