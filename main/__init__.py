@@ -1,7 +1,5 @@
 from flask import Flask
 import psycopg2
-# from . import config
-
 
 app = Flask(__name__)
 

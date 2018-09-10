@@ -19,4 +19,4 @@ def question_id(questionId):
             return jsonify({"Question":specific_qn_details.title , "Answers":result}), 200
     
     elif request.method == 'POST':
-        return jsonify({"message":"Please enter the correct URL method"}), 404
+        return jsonify({"message":"Please enter the correct URL method"}), 405
