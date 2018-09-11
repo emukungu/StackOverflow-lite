@@ -1,4 +1,4 @@
-from .test_base import TestBase, json, cur, conn
+from .test_base import TestBase, json
 
 
 class Test_specific_question(TestBase):
@@ -11,10 +11,7 @@ class Test_specific_question(TestBase):
 
     # def test_get_specific_question(self):
     #     self.post_a_question()
-    #     cur.execute("SELECT question_id FROM questions ORDER BY question_id DESC LIMIT 5;")
-    #     qn_id = cur.fetchone()
-    #     print(qn_id)
-    #     response = self.app.get('/api/v1/questions/54')
+    #     response = self.app.get('/api/v1/questions/1')
     #     self.assertEqual(response.status_code, 200)
     #     # self.assertIn("hello", response.data.decode())
     

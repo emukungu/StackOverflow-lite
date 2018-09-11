@@ -1,0 +1,64 @@
+swagger: "2.0"
+info:
+  description: StackOverflow-lite is a platform where people can ask questions and provide answers. Located at http://localhost:5000
+  version: "1.0.0"
+  title: StackOverflow-lite-API
+consumes:
+  - "application/json"
+produces:
+  - "application/json"
+
+host: "localhost:5000"
+
+basePath: "/api/v1"
+
+# securityDefinitions:
+#   jwt:
+#     type: apikey
+#     name: Authorization
+#     in: header
+#     x-authentication-scheme: Bearer
+
+schemes:
+  - "http"
+  - "https"
+# security:
+#   - jwt: [] # use the same name as above
+
+# Paths supported by the server application
+paths:
+  /questions:
+    post:
+      operationId: main.routes.post_a_question_route.post_a_question
+      tags:
+        - "Questions"
+      summary: ""
+      description: "Add a new question"
+      responses:
+        201:
+          description: "Your question has been added to database"
+    get:
+      operationId: main.routes.all_questions_route.get_all_questions
+      tags:
+        - "Questions"
+      summary: ""
+      description: "Get all questions"
+      responses:
+        200:
+          description: ""
+          schema:
+            type: "array"
+            items:
+              properties:
+                title:
+                  type: "string"
+                description:
+                  type: "string"
+                user_id:
+                  type: "integer"
+                date:
+                  type: "string"
+                qn_id:
+                  type: "integer"
+
+          

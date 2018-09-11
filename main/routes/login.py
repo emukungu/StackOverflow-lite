@@ -1,10 +1,9 @@
-from .baseRoutes import request, jsonify, json, status, app, User, cur, conn
+from .baseRoutes import request, jsonify, json, status, app, User, cur, conn, signature
 from flask_jwt_extended import JWTManager, jwt_required, create_access_token, get_jwt_identity
 
-signature = app.config["SECRET_KEY"] = "bootcamp"
 
 # create decorator function that decodes token
-jwt = JWTManager(app)
+jwt = JWTManager(app.app)
 
 @app.route('/api/v1/auth/login', methods = ['POST'])
 def login():

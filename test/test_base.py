@@ -10,7 +10,7 @@ class TestBase(unittest.TestCase):
     
     def setUp(self):
         """ set up a client for the app"""
-        self.app = app.test_client()
+        self.app = app.app.test_client()
 
         "setup dummy data to use during testing"
         self.data = json.dumps({"title": "REST",
@@ -59,6 +59,12 @@ class TestBase(unittest.TestCase):
         return response
     def tearDown(self):
         cur.execute("DELETE FROM answers;")
+        # cur.execute("ALTER TABLE answers DROP CONSTRAINT answers_pkey;")  
+        # cur.execute("ALTER TABLE answers DROP CONSTRAINT question_id_fkey CASCADE;") 
+        # cur.execute("ALTER TABLE answers DROP CONSTRAINT user_id_fkey;")     
         cur.execute("DELETE FROM questions;")
-        cur.execute("DELETE FROM users;")
+        # cur.execute("ALTER TABLE questions DROP CONSTRAINT questions_pkey;")
+        # cur.execute("ALTER TABLE questions DROP CONSTRAINT user_id_fkey;")
+        # cur.execute("ALTER TABLE users DROP CONSTRAINT users_pkey CASCADE;")
+        cur.execute("DELETE FROM users;")       
         conn.commit()
