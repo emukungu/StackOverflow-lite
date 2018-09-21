@@ -1,4 +1,4 @@
-from .baseRoutes import request, jsonify, json, status, Question, app, questions_list, date, cur, conn
+from .baseRoutes import request, jsonify, json, status, Question, app, date, cur, conn
 from .login import jwt_required, get_jwt_identity, login
 
 @app.route('/api/v1/questions/<int:questionId>', methods = ['DELETE'])

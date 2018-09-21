@@ -2,8 +2,8 @@ from .baseRoutes import request, jsonify, json, status, app, User, cur, conn, si
 from flask_jwt_extended import JWTManager, jwt_required, create_access_token, get_jwt_identity
 
 
-# create decorator function that decodes token
-jwt = JWTManager(app.app)
+
+jwt = JWTManager(app)
 
 @app.route('/api/v1/auth/login', methods = ['POST'])
 def login():
@@ -21,12 +21,11 @@ def login():
     #query database for user    
     query = "SELECT * FROM users WHERE username = %s AND user_password = %s;"
     cur.execute(query, (username, login_password))
-    returned_user = cur.fetchall()
-
+    returned_user = cur.fetchone()
     if not returned_user:
         return jsonify({"message":"User doesnot exist on this platform"}), 405
     
-    current_user = User(returned_user[0][0], returned_user[0][1], returned_user[0][2], returned_user[0][3])
+    current_user = User(returned_user[0], returned_user[1], returned_user[2], returned_user[3])
     
     auth_username = current_user.username
     auth_user_id = current_user.user_id

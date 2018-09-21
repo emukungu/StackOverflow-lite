@@ -1,4 +1,4 @@
-from .baseRoutes import request, jsonify, json, status, answers_list, app, Answer, questions_list, cur,conn
+from .baseRoutes import request, jsonify, json, status, app, Answer, cur,conn
 from .login import jwt_required, get_jwt_identity, login
 
 @app.route('/api/v1/questions/<int:questionId>/answers', methods= ['POST'])
@@ -9,7 +9,7 @@ def answers(questionId):
     answer_data = request.get_json()
 
     if not answer_data:
-        return jsonify({"error":"All data is required"}), 400
+        return jsonify({"error":"Invalid inputs"}), 400
 
     qn_answer = answer_data['answer']
 
@@ -29,7 +29,6 @@ def answers(questionId):
 
                 for row in repeated_answer:
                     if row[0] == qn_answer:
-                        print(repeated_answer)
                         return jsonify({"message":"Answer already exists"}), 400
                         
                 query = "INSERT INTO answers (answer, question_id, user_id) VALUES(%s, %s, %s);"
@@ -43,18 +42,5 @@ def answers(questionId):
 
 @app.route('/api/v1/answers', methods= ['GET'])
 def get_all_answers():
-    """ This endpoint will get answers to a specific question"""
-    all_answers = []
-    query = "SELECT * FROM answers;" 
-    cur.execute(query)
-    returned_all_answers = cur.fetchall()
-
-    if not returned_all_answers:
-        return jsonify({"message":"No answers exist."}) 
-
-    for i in returned_all_answers:
-        answer_object = Answer(i[1], i[2], i[0])
-        answer_details = answer_object.answer_per_question()
-        all_answers.append(answer_details)
-    return jsonify({"Results": all_answers})
-    
+    """ This endpoint will reject returning all answers on the platform"""
+    return jsonify({"message":"Please enter the correct URL method"}), 405

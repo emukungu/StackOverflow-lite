@@ -1,4 +1,4 @@
-from .baseRoutes import request, jsonify, json, status, Question, app, questions_list, date, cur, conn
+from .baseRoutes import request, jsonify, json, status, Question, app, date, cur, conn
 from .login import jwt_required, get_jwt_identity, login
 
 
@@ -40,17 +40,15 @@ def post_a_question():
         new_question = "INSERT INTO questions (title, question_description, date_created, user_id) VALUES(%s, %s, %s, %s);"
         cur.execute(new_question, (title, desc, post_date, user_id))
         conn.commit()
-        cur.execute(
-                    """SELECT * FROM questions 
-                    WHERE title = %s 
-                    AND question_description = %s 
-                    AND date_created = %s
-                    AND user_id = %s """,
-                    (title, desc, post_date, user_id)
-                    )
-        posted_qn = cur.fetchone()
-        question_object = Question(posted_qn[1], posted_qn[2], posted_qn[4], posted_qn[3], posted_qn[0])
-        question_details = question_object.listed_question()
-        return jsonify({"Successful":"Your question has been added to database"}), 201               
-
+        cur.execute(""" SELECT users.username, questions.title, questions.date_created, questions.question_id
+                    FROM questions
+                    INNER JOIN users
+                    ON questions.user_id = users.user_id
+                    WHERE questions.title = %s 
+                    AND questions.question_description = %s 
+                    AND questions.date_created = %s
+                    AND questions.user_id = %s; """,
+                    (title, desc, post_date, user_id))
+        posted_qn = cur.fetchone()        
+        return jsonify({"Successful":"Your question has been added to database", "Results":posted_qn}), 201               
 

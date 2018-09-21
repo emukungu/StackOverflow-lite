@@ -10,5 +10,3 @@ select = create_connection.query_database()
 cur = select["cursor"]
 conn = select["connect"]
  
-questions_list =[]
-answers_list = []
