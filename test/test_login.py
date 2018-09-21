@@ -7,11 +7,7 @@ class Test_login(TestBase):
         response = self.app.post('/api/v1/auth/login', data = self.login_data, content_type='application/json')
         self.assertEqual(response.status_code, 200)
 
-    def test_non_existent_user(self):
-        response = self.app.post('/api/v1/auth/login', data = self.login_data, content_type='application/json')
-        self.assertEqual(response.status_code, 405)
-        self.assertIn("User doesnot exist on this platform", response.data.decode())
-    
+     
     def test_missing_fields(self):
         response = self.app.post('/api/v1/auth/login', data = self.empty_login_data, content_type='application/json')
         self.assertEqual(response.status_code, 400)

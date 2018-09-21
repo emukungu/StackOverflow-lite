@@ -9,11 +9,12 @@ class Test_specific_question(TestBase):
         self.assertIn("The question doesnot exist on this platform", response.data.decode())
         
 
-    # def test_get_specific_question(self):
-    #     self.post_a_question()
-    #     response = self.app.get('/api/v1/questions/1')
-    #     self.assertEqual(response.status_code, 200)
-    #     # self.assertIn("hello", response.data.decode())
+    def test_get_specific_question(self):
+        self.post_a_question()
+        response = self.app.get('/api/v1/questions/1')
+        self.assertEqual(response.status_code, 200)
+        
+        
     
     def test_wrong_method(self):
         response = self.app.post('/api/v1/questions/1')

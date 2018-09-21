@@ -4,10 +4,6 @@ from .test_base import TestBase, json, status
 
 class Test_signup(TestBase):
     
-    def test_successful_signup(self):
-        response = self.app.post('/api/v1/auth/signup', data = self.signup_data, content_type='application/json')
-        self.assertEqual(response.status_code, 201)
-        self.assertIn("You have been successfully registered.", response.data.decode())
 
     def test_existing_user(self):
         self.app.post('/api/v1/auth/signup', data = self.signup_data, content_type='application/json')
