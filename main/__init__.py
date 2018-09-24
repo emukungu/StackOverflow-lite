@@ -1,10 +1,11 @@
 from flask import Flask
 import psycopg2
+import connexion
 from flask_cors import CORS
 
 
-app = Flask(__name__)
-CORS(app)
+app = connexion.FlaskApp(__name__, specification_dir = 'swagger/')
+CORS(app.app)
 
 from .db import *
 
@@ -28,13 +29,14 @@ class Create_connection:
 
 create_connection = Create_connection()
 
-signature = app.config["SECRET_KEY"] = "bootcamp"
+signature = app.app.config["SECRET_KEY"] = "bootcamp"
+app.add_api('swagger.yml')
 
 
 from .routes.post_a_question_route import post_a_question
 from .routes.all_questions_route import get_all_questions
-from .routes.get_specific_question import question_id
-from .routes.post_an_answer import answers, get_all_answers
+from .routes.get_specific_question import question_id, wrong_qn_id
+from .routes.post_an_answer import answers
 from .routes.signup import signup, get_all_users
 from .routes.login import login, wrong_login_method
 from .routes.delete import delete_question

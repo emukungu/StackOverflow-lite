@@ -3,7 +3,7 @@ from flask_jwt_extended import JWTManager, jwt_required, create_access_token, ge
 
 
 
-jwt = JWTManager(app)
+jwt = JWTManager(app.app)
 
 @app.route('/api/v1/auth/login', methods = ['POST'])
 def login():

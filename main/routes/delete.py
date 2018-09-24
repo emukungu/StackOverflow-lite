@@ -9,7 +9,7 @@ def delete_question(questionId):
     res = cur.fetchone()
 
     if not res:
-        return jsonify({"message":"Question does not exist OR check  if this is the question you posted." })    
+        return jsonify({"message":"Question does not exist OR check  if this is the question you posted." }), 405 
  
     cur.execute("DELETE FROM answers WHERE question_id = %s;", (questionId,))
     cur.execute("DELETE FROM questions WHERE question_id = %s AND user_id = %s;", (questionId, current_user_id))

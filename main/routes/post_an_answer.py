@@ -34,13 +34,15 @@ def answers(questionId):
                 query = "INSERT INTO answers (answer, question_id, user_id) VALUES(%s, %s, %s);"
                 cur.execute(query, (qn_answer, questionId, user_id))
                 conn.commit()
-                return jsonify({"Successful":"Your answer has been added", "QuestionId":questionId}), 201      
+                return jsonify({"Successful":"Your answer has been added"}), 201      
         return jsonify({"message": "Question doesnot exist"}), 404    
 
     return jsonify({"message": "Fill in all the fields"}), 400
 
 
-@app.route('/api/v1/answers', methods= ['GET'])
-def get_all_answers():
-    """ This endpoint will reject returning all answers on the platform"""
-    return jsonify({"message":"Please enter the correct URL method"}), 405
+# @app.route('/api/v1/answers', methods= ['GET'])
+# def get_all_answers():
+#     """ This endpoint will reject returning all answers on the platform"""
+#     return jsonify({"message":"Please enter the correct URL method"}), 405
+
+
