@@ -7,7 +7,7 @@ from flask_cors import CORS
 
 app = connexion.FlaskApp(__name__, specification_dir = 'swagger/')
 app.app.config.from_object(os.environ.get('APP_SETTINGS'))
-DATABASE_URL = os.environ['DATABASE_URI']
+DATABASE_URL = os.environ.get('DATABASE_URI')
 
 CORS(app.app)
 
@@ -15,8 +15,7 @@ from .db import *
 
 class Create_connection:
     def __init__(self):
-        # self.con = psycopg2.connect(host="localhost", database="crud", user="postgres", password="postgres")
-        self.con = psycopg2.connect(DATABASE_URL)
+        self.con = psycopg2.connect(host="localhost", database="crud", user="postgres", password="postgres")
         self.cursor = self.con.cursor()
         self.cursor.execute(user)     
         self.cursor.execute(question)
