@@ -183,16 +183,6 @@ paths:
                       type: string
                     qn_id:
                       type: integer
-                Answers:
-                  type: "array"
-                  items:
-                    properties:
-                      answered_user:
-                        type: string
-                      answer:
-                        type: string
-                      ans_id:
-                        type: integer
         404:
           description: "The question doesnot exist on this platform"
     delete:

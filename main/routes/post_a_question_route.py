@@ -17,7 +17,7 @@ def post_a_question():
         if not post_data:
             return jsonify({"error":"Invalid inputs"}), 400
 
-        title= post_data["title"]
+        title = post_data["title"]
         desc = post_data['description']
         post_date = str(date.today())
         user_id = current_user_id

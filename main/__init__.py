@@ -1,17 +1,22 @@
 from flask import Flask
+import os
 import psycopg2
 import connexion
 from flask_cors import CORS
 
 
 app = connexion.FlaskApp(__name__, specification_dir = 'swagger/')
+app.app.config.from_object(os.environ.get('APP_SETTINGS'))
+DATABASE_URL = os.environ['DATABASE_URI']
+
 CORS(app.app)
 
 from .db import *
 
 class Create_connection:
     def __init__(self):
-        self.con = psycopg2.connect(host="localhost", database="crud", user="postgres", password="postgres")
+        # self.con = psycopg2.connect(host="localhost", database="crud", user="postgres", password="postgres")
+        self.con = psycopg2.connect(DATABASE_URL)
         self.cursor = self.con.cursor()
         self.cursor.execute(user)     
         self.cursor.execute(question)
@@ -36,7 +41,7 @@ app.add_api('swagger.yml')
 from .routes.post_a_question_route import post_a_question
 from .routes.all_questions_route import get_all_questions
 from .routes.get_specific_question import question_id, wrong_qn_id
-from .routes.post_an_answer import answers
+from .routes.post_an_answer import answers, get_all_answers
 from .routes.signup import signup, get_all_users
 from .routes.login import login, wrong_login_method
 from .routes.delete import delete_question

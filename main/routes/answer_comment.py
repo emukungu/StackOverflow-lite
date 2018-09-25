@@ -30,7 +30,7 @@ def comment(answerId):
                 if row[0] == answer_comment:
                     return jsonify({"message":"Comment already exists"}), 400
                         
-            cur.execute("INSERT INTO comments (comment, user_id) VALUES(%s, %s);", (answer_comment, user_id))
+            cur.execute("INSERT INTO comments (comment, user_id, answer_id) VALUES(%s, %s, %s);", (answer_comment, user_id, answerId))
             conn.commit()
             return jsonify({"Successful":"Your comment has been added", "AnswerId":answerId}), 201
         return jsonify({"message": "Answer doesnot exist"}), 404

@@ -19,12 +19,24 @@ def update_an_answer(questionId, answerId):
     if queried_answer:
         data = request.get_json()
         qn_answer = data["answer"]
-        cur.execute("UPDATE answers SET answer = %s WHERE answer = %s; ", (qn_answer, queried_answer))
-        conn.commit()
-        return jsonify({"message":"Your answer has been updated"})
+        if not qn_answer:
+         return jsonify({"message":"Fill in the missing fields"}), 400
+        cur.execute("SELECT answer FROM answers WHERE answer = %s AND question_id =%s;", (qn_answer, questionId))
+        res = cur.fetchone()
+        if not res:
+            query = "UPDATE answers SET answer = %s WHERE answer = %s AND answer_id = %s; "
+            cur.execute(query,(qn_answer, queried_answer, answerId))
+            conn.commit()
+            return jsonify({"message":"Your answer has been updated"}), 200
+        return jsonify({"message":"Answer for the question already exists"}), 403
+
     elif qn_answer_preferred:
         cur.execute("SELECT answer FROM answers WHERE question_id = %s",(questionId,))
-        preferred_answer = cur.fetchone()[0]
-        return jsonify({"Author's preferred answer":preferred_answer})
-    
+        preferred_answer = cur.fetchall()
+        return jsonify({"message":"Author's preferred answer "+ preferred_answer})
+
+    elif not queried_answer:
+        return jsonify({"message":"You don't have editing priviledges for this question"}), 403
+    elif not qn_answer_preferred:
+        return jsonify({"message":"You don't priviledges to prefer this answer"}), 403
     

@@ -24,6 +24,7 @@ def vote(answerId):
     else:
         if vote == "upvote":
             cur.execute("SELECT up_vote FROM votes WHERE answer_id = %s",(answerId,))
+            # cur.execute("UPDATE votes SET up_vote = %s WHERE answer_id = %s; ", (voting(current_vote), ))
             current_vote = cur.fetchone()[0]            
             cur.execute("INSERT INTO comments (up_vote, user_id) VALUES(%s, %s);", (voting(current_vote), current_user_id))
             conn.commit()

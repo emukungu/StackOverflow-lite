@@ -34,15 +34,48 @@ def answers(questionId):
                 query = "INSERT INTO answers (answer, question_id, user_id) VALUES(%s, %s, %s);"
                 cur.execute(query, (qn_answer, questionId, user_id))
                 conn.commit()
-                return jsonify({"Successful":"Your answer has been added"}), 201      
+                cur.execute(""" SELECT users.username, answers.answer, answers.answer_id
+                    FROM answers
+                    INNER JOIN users
+                    ON answers.user_id = users.user_id
+                    WHERE answers.answer = %s 
+                    AND answers.question_id = %s 
+                    AND answers.user_id = %s; """,
+                    (qn_answer, questionId, user_id))
+                queried_answer = cur.fetchone()
+                posted_answer = {
+                    "username":queried_answer[0],
+                    "answer":queried_answer[1],
+                    "ans_id":queried_answer[2]
+                }
+
+                return jsonify({"message":"Your answer has been added", "Results":posted_answer}), 201      
         return jsonify({"message": "Question doesnot exist"}), 404    
 
     return jsonify({"message": "Fill in all the fields"}), 400
 
 
-# @app.route('/api/v1/answers', methods= ['GET'])
-# def get_all_answers():
-#     """ This endpoint will reject returning all answers on the platform"""
-#     return jsonify({"message":"Please enter the correct URL method"}), 405
+@app.route('/api/v1/questions/<int:questionId>/answers', methods= ['GET'])
+def get_all_answers(questionId):
+    """ This endpoint will get answers to a specific question"""
+    all_answers = []
+    cur.execute("""SELECT users.username, answers.answer, answers.answer_id
+                FROM answers
+                INNER JOIN users
+                ON answers.user_id = users.user_id
+                WHERE answers.question_id = %s""", (questionId,))
+    returned_all_answers = cur.fetchall()
+
+    if not returned_all_answers:
+        return jsonify({"message":"No answers exist for the question."}), 404
+
+    for row in returned_all_answers:                          
+        returned_ans = {
+            "answered_user": row[0],
+            "answer":row[1],
+            "ans_id":row[2]
+        }
+        all_answers.append(returned_ans)
+    return jsonify({"Results": all_answers}), 200
 
 
