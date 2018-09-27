@@ -28,7 +28,7 @@ def update_an_answer(questionId, answerId):
             cur.execute(query,(qn_answer, queried_answer, answerId))
             conn.commit()
             return jsonify({"message":"Your answer has been updated"}), 200
-        return jsonify({"message":"Answer for the question already exists"}), 403
+        return jsonify({"message":"Answer for the question already exists"}), 409
 
     elif qn_answer_preferred:
         cur.execute("SELECT answer FROM answers WHERE question_id = %s",(questionId,))

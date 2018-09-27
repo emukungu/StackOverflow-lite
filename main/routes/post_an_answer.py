@@ -29,7 +29,7 @@ def answers(questionId):
 
                 for row in repeated_answer:
                     if row[0] == qn_answer:
-                        return jsonify({"message":"Answer already exists"}), 400
+                        return jsonify({"message":"Answer already exists"}), 409
                         
                 query = "INSERT INTO answers (answer, question_id, user_id) VALUES(%s, %s, %s);"
                 cur.execute(query, (qn_answer, questionId, user_id))

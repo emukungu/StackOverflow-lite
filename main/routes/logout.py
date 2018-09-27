@@ -1,7 +1,7 @@
-from .baseRoutes import jsonify, status, app,cur, conn
+from .baseRoutes import jsonify, status, app, cur, conn
 from .login import jwt_required, get_jwt_identity, login
 
-@app.route('/api/v1/logout', methods = ['POST'])
+@app.route('/api/v1/logout', methods = ['GET'])
 def logout():
     cur.close()
     conn.close()

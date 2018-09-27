@@ -28,7 +28,7 @@ def comment(answerId):
 
             for row in repeated_comment:
                 if row[0] == answer_comment:
-                    return jsonify({"message":"Comment already exists"}), 400
+                    return jsonify({"message":"Comment already exists"}), 409
                         
             cur.execute("INSERT INTO comments (comment, user_id, answer_id) VALUES(%s, %s, %s);", (answer_comment, user_id, answerId))
             conn.commit()
@@ -38,7 +38,25 @@ def comment(answerId):
     return jsonify({"message": "Fill in all the fields"}), 400
 
 
-@app.route('/api/v1/comments', methods= ['GET'])
-def get_all_comments():
+@app.route('/api/v1/answers/<int:answerId>/comment', methods= ['GET'])
+def get_all_comments(answerId):
     """ This endpoint will reject returning all comments on the platform"""
-    return jsonify({"message":"Please enter the correct URL method"}), 405
+    all_comments = []
+    cur.execute("""SELECT users.username, comments.comment, comments.answer_id
+                FROM comments
+                INNER JOIN users
+                ON comments.user_id = users.user_id
+                WHERE comments.answer_id = %s;""", (answerId,))
+    returned_all_comments = cur.fetchall()
+
+    if not returned_all_comments:
+        return jsonify({"message":"No comments exist for the question."}), 404
+
+    for row in returned_all_comments:                          
+        returned_comments = {
+            "commenting_user": row[0],
+            "comment":row[1],
+            "ans_id":row[2]
+        }
+        all_comments.append(returned_comments)
+    return jsonify({"Results": all_comments}), 200

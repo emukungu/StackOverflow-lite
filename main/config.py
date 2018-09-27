@@ -5,18 +5,19 @@ class Config(object):
     DEBUG = False
     TESTING = False
     SECRET_KEY = 'bootcamp'
+    DATABASE_URL = os.environ['DATABASE_URI']
 
 class DevelopmentConfig(Config):
-    DEBUG = True
-    DATABASE_URI = 'host="localhost", database="crud", user="postgres", password="postgres"'
-    ENV = "development"
+    DEBUG = True    
+    DATABASE_URL = 'postgres://localhost/crud'
+    FLASK_ENV = 'development'
     
 class ProductionConfig(Config):
     DEBUG = False
-    DATABASE_URI = 'host_crud'
-    ENV = "production"
-
+    
+    
 class TestingConfig(Config):
     DEBUG = True
-    DATABASE_URI = 'test_db'
-    ENV = "testing"
+    DATABASE_URL = 'postgres://localhost/test'
+   
+    

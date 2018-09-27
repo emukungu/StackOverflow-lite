@@ -30,12 +30,12 @@ def login():
     auth_username = current_user.username
     auth_user_id = current_user.user_id
 
-    token = create_access_token(identity = {"user_id": auth_user_id, "username":auth_username})
-    results = { "message": username + " exists",
+    token = create_access_token(identity = {"user_id": auth_user_id, "username":auth_username}, expires_delta = False)
+    results = { "username": username,
                 "token": token,
                 "user_id": auth_user_id
     }
-    return jsonify(results), 200 
+    return jsonify({"results":results}), 200 
 
 
 @app.route('/api/v1/auth/login', methods = ['GET'])

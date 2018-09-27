@@ -35,7 +35,7 @@ def signup():
 
 @app.route('/api/v1/auth/signup', methods = ['GET'])
 def get_all_users():     
-    return jsonify({"message":"Please enter the correct URL method"}), 404
+    return jsonify({"message":"Please enter the correct URL method"}), 405
     
     
     
