@@ -34,6 +34,6 @@ class Test_post_an_answer(TestBase):
                         headers = {"Content-Type": "application/json",
                                 "Authorization": "Bearer " + self.login()
                                 })
-        response = self.app.get('/api/v1/answers')
-        self.assertEqual(response.status_code, 405)
-        self.assertIn("Please enter the correct URL method", response.data.decode())
+        response = self.app.get('/api/v1/questions/1/answers')
+        self.assertEqual(response.status_code, 200)
+       
