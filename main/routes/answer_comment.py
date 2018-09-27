@@ -32,7 +32,21 @@ def comment(answerId):
                         
             cur.execute("INSERT INTO comments (comment, user_id, answer_id) VALUES(%s, %s, %s);", (answer_comment, user_id, answerId))
             conn.commit()
-            return jsonify({"Successful":"Your comment has been added", "AnswerId":answerId}), 201
+            cur.execute(""" SELECT users.username, comments.comment, comments.answer_id
+                    FROM comments
+                    INNER JOIN users
+                    ON comments.user_id = users.user_id
+                    WHERE comments.comment = %s 
+                    AND comments.answer_id = %s 
+                    AND comments.user_id = %s; """,
+                    (answer_comment, answerId, user_id))
+            queried_comment = cur.fetchone()
+            posted_comment = {
+                    "username":queried_comment[0],
+                    "comment":queried_comment[1],
+                    "ans_id":queried_comment[2]
+                }
+            return jsonify({"Successful":"Your comment has been added", "result":posted_comment}), 201
         return jsonify({"message": "Answer doesnot exist"}), 404
 
     return jsonify({"message": "Fill in all the fields"}), 400

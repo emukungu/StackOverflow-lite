@@ -49,6 +49,12 @@ def post_a_question():
                     AND questions.date_created = %s
                     AND questions.user_id = %s; """,
                     (title, desc, post_date, user_id))
-        posted_qn = cur.fetchone()        
+        row = cur.fetchone()      
+        posted_qn = {
+            "username":row[0],
+            "title":row[1],
+            "date_created":row[2],
+            "question_id":row[3]
+        }  
         return jsonify({"Successful":"Your question has been added to database", "Results":posted_qn}), 201               
 

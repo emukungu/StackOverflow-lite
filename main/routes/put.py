@@ -27,7 +27,17 @@ def update_an_answer(questionId, answerId):
             query = "UPDATE answers SET answer = %s WHERE answer = %s AND answer_id = %s; "
             cur.execute(query,(qn_answer, queried_answer, answerId))
             conn.commit()
-            return jsonify({"message":"Your answer has been updated"}), 200
+            cur.execute(""" SELECT answer, question_id
+                    FROM answers
+                    WHERE answer = %s 
+                    AND question_id = %s; """,
+                    (qn_answer, questionId))
+            set_answer = cur.fetchone()
+            updated_answer = {
+                    "answer":set_answer[0],
+                    "question_id":set_answer[1]
+                }
+            return jsonify({"message":"Your answer has been updated", "results": updated_answer}), 200
         return jsonify({"message":"Answer for the question already exists"}), 409
 
     elif qn_answer_preferred:
