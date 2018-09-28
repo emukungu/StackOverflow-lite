@@ -17,7 +17,7 @@ from .db import *
 class Create_connection:
     def __init__(self):
         if os.getenv("FLASK_ENV") == "production":
-            self.con= psycopg2.connect(DATABASE_URL, sslmode='require') 
+            self.con= psycopg2.connect(DATABASE_URL) 
         self.con = psycopg2.connect(host="localhost", database="crud", user="postgres", password="postgres")
         self.cursor = self.con.cursor()
         self.cursor.execute(user)     
