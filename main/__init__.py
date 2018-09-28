@@ -7,11 +7,9 @@ from flask_cors import CORS
 
 app = connexion.FlaskApp(__name__, specification_dir = 'swagger/')
 
-# if os.getenv("FLASK_ENV") == "production":
-#     connection = psycopg2.connect(os.getenv('DATABASE_URL?sslmode=require'))
 
 CORS(app.app)
-DATABASE_URL = os.environ['DATABASE_URL']
+DATABASE_URL = os.getenv('DATABASE_URL')
 
 from .db import *
 
