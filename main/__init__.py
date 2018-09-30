@@ -10,13 +10,13 @@ app.app.config.from_object('config.DevelopmentConfig')
 
 CORS(app.app)
 DATABASE_URL = 'postgres://mhttrcckdtmkfw:ee8e09bc8b5337d1c1bfd5581ab07761a1f906ac61e7f274856a53f235267507@ec2-75-101-153-56.compute-1.amazonaws.com:5432/d8grisdkdrncs0'
- 
+
 from .db import *
 
 
 class Create_connection:
     def __init__(self):
-        if os.getenv("FLASK_ENV") == "production":
+        if os.getenv("DATABASE_URL") == DATABASE_URL:
             self.con = psycopg2.connect(DATABASE_URL, sslmode='require')
         self.con = psycopg2.connect(host="localhost", database="crud", user="postgres", password="postgres")
         self.cursor = self.con.cursor()
