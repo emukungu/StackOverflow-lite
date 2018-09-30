@@ -23,5 +23,5 @@ class Test_signup(TestBase):
 
     def test_wrong_method(self):
         response = self.app.get('/api/v1/auth/signup')
-        self.assertEqual(response.status_code, 404)
+        self.assertEqual(response.status_code, 405)
         self.assertIn("Please enter the correct URL method", response.data.decode())
