@@ -16,9 +16,10 @@ from .db import *
 
 class Create_connection:
     def __init__(self):
-        if os.getenv("DATABASE_URL") == DATABASE_URL:
-            self.con = psycopg2.connect(DATABASE_URL, sslmode='require')
-        self.con = psycopg2.connect(host="localhost", database="crud", user="postgres", password="postgres")
+        if os.getenv('DATABASE_URL') == DATABASE_URL:
+            self.con = psycopg2.connect(DATABASE_URL)
+        else:
+            self.con = psycopg2.connect(host="localhost", database="crud", user="postgres", password="postgres")
         self.cursor = self.con.cursor()
         self.cursor.execute(user)     
         self.cursor.execute(question)
