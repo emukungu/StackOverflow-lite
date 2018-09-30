@@ -3,7 +3,6 @@ from .login import jwt_required, get_jwt_identity, login
 
 @app.route('/api/v1/logout', methods = ['GET'])
 def logout():
-    cur.close()
-    conn.close()
+    pass
 
     return jsonify({"message":"You have successfully logged out."})

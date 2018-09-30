@@ -35,7 +35,7 @@ def login():
                 "token": token,
                 "user_id": auth_user_id
     }
-    return jsonify({"results":results}), 200 
+    return jsonify(results), 200 
 
 
 @app.route('/api/v1/auth/login', methods = ['GET'])

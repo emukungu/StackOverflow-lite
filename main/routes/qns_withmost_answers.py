@@ -7,7 +7,8 @@ def qns_withmost_answers():
     query = """SELECT questions.title, COUNT(answers.answer) AS answers
     FROM answers
     INNER JOIN questions
-    ON answers.question_id == questions.question_id
+    ON answers.question_id = questions.question_id
+    GROUP BY questions.title
     ORDER BY COUNT(answers.answer) DESC;""" 
     cur.execute(query)
     returned_totalcount_per_question = cur.fetchall()
