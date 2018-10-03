@@ -1,4 +1,4 @@
-from .baseRoutes import request, jsonify, json, status, Question, app, date, cur, conn
+from .baseRoutes import request, jsonify, json, status, Question, datetime, app, cur, conn
 from .login import jwt_required, get_jwt_identity, login
 
 
@@ -19,7 +19,7 @@ def post_a_question():
 
         title = post_data["title"]
         desc = post_data['description']
-        post_date = str(date.today())
+        post_date = datetime.now()
         user_id = current_user_id
         
         # empty input fields

@@ -9,17 +9,17 @@ app = connexion.FlaskApp(__name__, specification_dir = 'swagger/')
 app.app.config.from_object('config.DevelopmentConfig')
 
 CORS(app.app)
-DATABASE_URL = 'postgres://mhttrcckdtmkfw:ee8e09bc8b5337d1c1bfd5581ab07761a1f906ac61e7f274856a53f235267507@ec2-75-101-153-56.compute-1.amazonaws.com:5432/d8grisdkdrncs0'
+#DATABASE_URL = 'postgres://mhttrcckdtmkfw:ee8e09bc8b5337d1c1bfd5581ab07761a1f906ac61e7f274856a53f235267507@ec2-75-101-153-56.compute-1.amazonaws.com:5432/d8grisdkdrncs0'
 
 from .db import *
 
 
 class Create_connection:
     def __init__(self):
-        if os.getenv('DATABASE_URL') == DATABASE_URL:
-            self.con = psycopg2.connect(DATABASE_URL, sslmode='require')
+        if os.getenv('FLASK_ENV') == 'production':
+            self.con = psycopg2.connect(os.getenv('DATABASE_URL'), sslmode = 'require')
         else:
-            self.con = psycopg2.connect(host="localhost", database="crud", user="postgres", password="postgres")
+            self.con = psycopg2.connect(host="localhost", database="crud", user='esthernamusisi')
         self.cursor = self.con.cursor()
         self.cursor.execute(user)     
         self.cursor.execute(question)

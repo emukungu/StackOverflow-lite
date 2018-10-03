@@ -9,9 +9,10 @@ def get_all_questions():
                 FROM questions
                 INNER JOIN users
                 ON questions.user_id = users.user_id
-                ORDER BY questions.date_created DESC;"""
+                ORDER BY questions.question_id DESC;"""
     cur.execute(query)
     returned_all_questions = cur.fetchall()
+    print(returned_all_questions)
 
     if not returned_all_questions:
         return jsonify({"message":"No questions exist."}), 404 

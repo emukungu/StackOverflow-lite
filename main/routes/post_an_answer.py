@@ -63,8 +63,9 @@ def get_all_answers(questionId):
                 FROM answers
                 INNER JOIN users
                 ON answers.user_id = users.user_id
-                WHERE answers.question_id = %s""", (questionId,))
+                WHERE answers.question_id = %s;""", (questionId,))
     returned_all_answers = cur.fetchall()
+    print(cur.statusmessage)
 
     if not returned_all_answers:
         return jsonify({"message":"No answers exist for the question."}), 404
