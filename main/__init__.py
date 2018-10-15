@@ -18,7 +18,7 @@ class Create_connection:
         if os.getenv('FLASK_ENV') == 'production':
             self.con = psycopg2.connect(os.getenv('DATABASE_URL'), sslmode = 'require')
         else:
-            self.con = psycopg2.connect(host="localhost", database="crud", user='esthernamusisi')
+            self.con = psycopg2.connect(host="localhost", database="crud", user='postgres')
         self.cursor = self.con.cursor()
         self.cursor.execute(user)     
         self.cursor.execute(question)
