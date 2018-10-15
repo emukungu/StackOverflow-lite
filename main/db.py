@@ -29,28 +29,28 @@ user = """CREATE TABLE IF NOT EXISTS users(
 
 
 
-comment ="""CREATE TABLE IF NOT EXISTS comments(
-    comment_id SERIAL PRIMARY KEY,
-    answer_id INT NOT NULL,
-    user_id INT NOT NULL,
-    comment VARCHAR (255) NOT NULL,
-    CONSTRAINT comments_answer_id_fkey FOREIGN KEY(answer_id)
-        REFERENCES answers(answer_id)
-        ON DELETE CASCADE
-    );"""
+# comment = """CREATE TABLE IF NOT EXISTS comments(
+#     comment_id SERIAL PRIMARY KEY,
+#     answer_id INT NOT NULL,
+#     user_id INT NOT NULL,
+#     comment VARCHAR (255) NOT NULL,
+#     CONSTRAINT comments_answer_id_fkey FOREIGN KEY(answer_id)
+#         REFERENCES answers(answer_id)
+#         ON DELETE CASCADE
+#     );"""
 
 
 
-vote = """CREATE TABLE IF NOT EXISTS votes(
-    vote_id SERIAL PRIMARY KEY,
-    answer_id INT NOT NULL,
-    user_id INT NOT NULL,
-    up_vote INT,
-    down_vote INT,
-    CONSTRAINT comments_answer_id_fkey FOREIGN KEY(answer_id)
-        REFERENCES answers(answer_id)    
-        ON DELETE CASCADE 
-    );"""
+# vote = """CREATE TABLE IF NOT EXISTS votes(
+#     vote_id SERIAL PRIMARY KEY,
+#     answer_id INT NOT NULL,
+#     user_id INT NOT NULL,
+#     up_vote INT,
+#     down_vote INT,
+#     CONSTRAINT comments_answer_id_fkey FOREIGN KEY(answer_id)
+#         REFERENCES answers(answer_id)    
+#         ON DELETE CASCADE 
+#     );"""
       
 
  

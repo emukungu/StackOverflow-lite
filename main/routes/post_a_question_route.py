@@ -19,7 +19,7 @@ def post_a_question():
 
         title = post_data["title"]
         desc = post_data['description']
-        post_date = datetime.now()
+        post_date = datetime.utcnow()
         user_id = current_user_id
         
         # empty input fields
@@ -49,11 +49,12 @@ def post_a_question():
                     AND questions.date_created = %s
                     AND questions.user_id = %s; """,
                     (title, desc, post_date, user_id))
-        row = cur.fetchone()      
+        row = cur.fetchone()     
+        print(row) 
         posted_qn = {
             "username":row[0],
             "title":row[1],
-            "date_created":row[2],
+            "date_created":row[2].strftime("%Y-%m-%d %H:%M:%S"),
             "question_id":row[3]
         }  
         return jsonify({"Successful":"Your question has been added to database", "Results":posted_qn}), 201               

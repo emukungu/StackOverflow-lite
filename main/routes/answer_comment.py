@@ -56,21 +56,22 @@ def comment(answerId):
 def get_all_comments(answerId):
     """ This endpoint will reject returning all comments on the platform"""
     all_comments = []
-    cur.execute("""SELECT users.username, comments.comment, comments.answer_id
+    try: 
+        cur.execute("""SELECT users.username, comments.comment, comments.answer_id
                 FROM comments
                 INNER JOIN users
                 ON comments.user_id = users.user_id
                 WHERE comments.answer_id = %s;""", (answerId,))
-    returned_all_comments = cur.fetchall()
+        returned_all_comments = cur.fetchall()
 
-    if not returned_all_comments:
+        for row in returned_all_comments:                          
+            returned_comments = {
+                "commenting_user": row[0],
+                "comment":row[1],
+                "ans_id":row[2]
+            }
+            all_comments.append(returned_comments)
+        return jsonify({"Results": all_comments}), 200
+
+    except:
         return jsonify({"message":"No comments exist for the question."}), 404
-
-    for row in returned_all_comments:                          
-        returned_comments = {
-            "commenting_user": row[0],
-            "comment":row[1],
-            "ans_id":row[2]
-        }
-        all_comments.append(returned_comments)
-    return jsonify({"Results": all_comments}), 200

@@ -9,7 +9,6 @@ app = connexion.FlaskApp(__name__, specification_dir = 'swagger/')
 app.app.config.from_object('config.DevelopmentConfig')
 
 CORS(app.app)
-#DATABASE_URL = 'postgres://mhttrcckdtmkfw:ee8e09bc8b5337d1c1bfd5581ab07761a1f906ac61e7f274856a53f235267507@ec2-75-101-153-56.compute-1.amazonaws.com:5432/d8grisdkdrncs0'
 
 from .db import *
 
@@ -24,8 +23,25 @@ class Create_connection:
         self.cursor.execute(user)     
         self.cursor.execute(question)
         self.cursor.execute(answer)
-        self.cursor.execute(comment)
-        self.cursor.execute(vote)
+        self.cursor.execute("""CREATE TABLE IF NOT EXISTS comments(
+                comment_id SERIAL PRIMARY KEY,
+                answer_id INT NOT NULL,
+                user_id INT NOT NULL,
+                comment VARCHAR (255) NOT NULL,
+                CONSTRAINT comments_answer_id_fkey FOREIGN KEY(answer_id)
+                    REFERENCES answers(answer_id)
+                    ON DELETE CASCADE
+            );""")
+        self.cursor.execute("""CREATE TABLE IF NOT EXISTS votes(
+            vote_id SERIAL PRIMARY KEY,
+            answer_id INT NOT NULL,
+            user_id INT NOT NULL,
+            up_vote INT,
+            down_vote INT,
+            CONSTRAINT comments_answer_id_fkey FOREIGN KEY(answer_id)
+                REFERENCES answers(answer_id)    
+                ON DELETE CASCADE 
+            );""")
         self.con.commit()
 
     def query_database(self):

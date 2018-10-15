@@ -59,24 +59,24 @@ def answers(questionId):
 def get_all_answers(questionId):
     """ This endpoint will get answers to a specific question"""
     all_answers = []
-    cur.execute("""SELECT users.username, answers.answer, answers.answer_id
+    try:
+        cur.execute("""SELECT users.username, answers.answer, answers.answer_id
                 FROM answers
                 INNER JOIN users
                 ON answers.user_id = users.user_id
                 WHERE answers.question_id = %s;""", (questionId,))
-    returned_all_answers = cur.fetchall()
-    print(cur.statusmessage)
+        returned_all_answers = cur.fetchall()
+        
+        for row in returned_all_answers:                          
+            returned_ans = {
+                "answered_user": row[0],
+                "answer":row[1],
+                "ans_id":row[2]
+            }
+            all_answers.append(returned_ans)
+        return jsonify({"Results": all_answers}), 200
 
-    if not returned_all_answers:
+    except:
         return jsonify({"message":"No answers exist for the question."}), 404
-
-    for row in returned_all_answers:                          
-        returned_ans = {
-            "answered_user": row[0],
-            "answer":row[1],
-            "ans_id":row[2]
-        }
-        all_answers.append(returned_ans)
-    return jsonify({"Results": all_answers}), 200
 
 
