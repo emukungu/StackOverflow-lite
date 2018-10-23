@@ -1,4 +1,5 @@
-[![Build Status](https://travis-ci.org/emukungu/StackOverflow-lite.svg?branch=database)](https://travis-ci.org/emukungu/StackOverflow-lite) [![Coverage Status](https://coveralls.io/repos/github/emukungu/StackOverflow-lite/badge.svg?branch=database)](https://coveralls.io/github/emukungu/StackOverflow-lite?branch=database)[![Maintainability](https://api.codeclimate.com/v1/badges/65d2700f7c2f583e0fd6/maintainability)](https://codeclimate.com/github/emukungu/StackOverflow-lite/maintainability)[![Test Coverage](https://api.codeclimate.com/v1/badges/65d2700f7c2f583e0fd6/test_coverage)](https://codeclimate.com/github/emukungu/StackOverflow-lite/test_coverage)
+[![Build Status](https://travis-ci.org/emukungu/StackOverflow-lite.svg?branch=database)](https://travis-ci.org/emukungu/StackOverflow-lite) [![Coverage Status](https://coveralls.io/repos/github/emukungu/StackOverflow-lite/badge.svg?branch=database)](https://coveralls.io/github/emukungu/StackOverflow-lite?branch=database) 
+[![Maintainability](https://api.codeclimate.com/v1/badges/65d2700f7c2f583e0fd6/maintainability)](https://codeclimate.com/github/emukungu/StackOverflow-lite/maintainability)
 
 # StackOverflow-lite
 StackOverflow-lite is a platform where people can ask questions and provide answers.
