@@ -17,4 +17,4 @@ services:
  - postgresql
 
 before_script:
-  - psql -c 'create database crud;' -U postgres 
+  - psql -c 'create database test_bc;' -U postgres 
