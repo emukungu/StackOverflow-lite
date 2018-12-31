@@ -62,9 +62,9 @@ class TestBase(unittest.TestCase):
         return response
     
     def tearDown(self):
-        cur.execute("DROP TABLE users CASCADE;")
-        cur.execute("DROP TABLE questions CASCADE;")
         cur.execute("DROP TABLE answers CASCADE;")
+        cur.execute("DROP TABLE questions CASCADE;")
+        cur.execute("DROP TABLE users CASCADE;")
         # cur.execute("DROP TABLE comments CASCADE;")
         # cur.execute("DROP TABLE votes CASCADE;")
         conn.commit()
