@@ -9,7 +9,7 @@ consumes:
 produces:
   - "application/json"
 
-host: "localhost:5000"
+host: "stackoverflow-esther.herokuapp.com"
 
 basePath: "/api/v1"
 
