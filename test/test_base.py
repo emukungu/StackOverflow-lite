@@ -9,7 +9,7 @@ class TestBase(unittest.TestCase):
     
     def setUp(self):
         """ set up a client for the app"""
-        self.app = app.app.test_client()
+        self.app = app.test_client()
         self.create_connection = Create_connection()
 
         "setup dummy data to use during testing"

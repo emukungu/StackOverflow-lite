@@ -5,10 +5,11 @@ import connexion
 from flask_cors import CORS
 
 
-app = connexion.FlaskApp(__name__, specification_dir = 'swagger/')
-app.app.config.from_object('config.DevelopmentConfig')
+# app = connexion.FlaskApp(__name__, specification_dir = 'swagger/')
+app = Flask(__name__)
+app.config.from_object('config.DevelopmentConfig')
 
-CORS(app.app)
+CORS(app)
 
 from .db import *
 
@@ -16,7 +17,7 @@ from .db import *
 class Create_connection:
     def __init__(self):
         if os.getenv('FLASK_ENV') == 'production':
-            self.con = psycopg2.connect(os.getenv('DATABASE_URL'), ssl = 'require')
+            self.con = psycopg2.connect(os.getenv('DATABASE_URL'), sslmode = 'require')
         else:
             self.con = psycopg2.connect(host="localhost", database="crud", user='postgres')
         self.cursor = self.con.cursor()
@@ -36,8 +37,8 @@ class Create_connection:
 
 create_connection = Create_connection()
 
-signature = app.app.config["SECRET_KEY"] = "bootcamp"
-app.add_api('swagger.yml')
+signature = app.config["SECRET_KEY"] = "bootcamp"
+# app.add_api('swagger.yml')
 
 
 from .routes.post_a_question_route import post_a_question

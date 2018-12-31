@@ -1,7 +1,7 @@
 from .baseRoutes import request, jsonify, json, status, app, User, cur, conn, signature
 from flask_jwt_extended import JWTManager, jwt_required, create_access_token, get_jwt_identity, get_raw_jwt
 
-jwt = JWTManager(app.app)
+jwt = JWTManager(app)
 
 @app.route('/api/v1/auth/login', methods = ['POST'])
 def login():
