@@ -22,7 +22,7 @@ basePath: "/api/v1"
 #     # x-tokenInfoFunc: main.routes.login.login
 
 schemes:
-  - "http"
+  
   - "https"
 # security:
 #   - jwt: [] # use the same name as above
