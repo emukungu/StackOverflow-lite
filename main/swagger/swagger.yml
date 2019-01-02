@@ -23,7 +23,7 @@ basePath: "/api/v1"
 
 schemes:
   - "http"
-  - "https"
+  # - "https"
 # security:
 #   - jwt: [] # use the same name as above
 
