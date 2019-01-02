@@ -16,32 +16,13 @@ from .db import *
 class Create_connection:
     def __init__(self):
         if os.getenv('FLASK_ENV') == 'production':
-            self.con = psycopg2.connect(os.getenv('DATABASE_URL'), sslmode = 'require')
+            self.con = psycopg2.connect(os.getenv('DATABASE_URL'), sslmode = 'disable')
         else:
             self.con = psycopg2.connect(host="localhost", database="crud", user='postgres')
         self.cursor = self.con.cursor()
         self.cursor.execute(user)     
         self.cursor.execute(question)
         self.cursor.execute(answer)
-        self.cursor.execute("""CREATE TABLE IF NOT EXISTS comments(
-                comment_id SERIAL PRIMARY KEY,
-                answer_id INT NOT NULL,
-                user_id INT NOT NULL,
-                comment VARCHAR (255) NOT NULL,
-                CONSTRAINT comments_answer_id_fkey FOREIGN KEY(answer_id)
-                    REFERENCES answers(answer_id)
-                    ON DELETE CASCADE
-            );""")
-        self.cursor.execute("""CREATE TABLE IF NOT EXISTS votes(
-            vote_id SERIAL PRIMARY KEY,
-            answer_id INT NOT NULL,
-            user_id INT NOT NULL,
-            up_vote INT,
-            down_vote INT,
-            CONSTRAINT comments_answer_id_fkey FOREIGN KEY(answer_id)
-                REFERENCES answers(answer_id)    
-                ON DELETE CASCADE 
-            );""")
         self.con.commit()
 
     def query_database(self):

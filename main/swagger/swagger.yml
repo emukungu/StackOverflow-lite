@@ -1,7 +1,7 @@
 swagger: "2.0"
 info:
   description: StackOverflow-lite is a platform where people can ask questions and provide answers.
-               Located at http://localhost:5000/api/v1/ui/#/
+               Located at https://stackoverflow-esther.herokuapp.com/api/v1/ui/#/
   version: "1.0.0"
   title: StackOverflow-lite-API
 consumes:
@@ -9,7 +9,7 @@ consumes:
 produces:
   - "application/json"
 
-host: "localhost:5000"
+host: "stackoverflow-esther.herokuapp.com"
 
 basePath: "/api/v1"
 
@@ -22,8 +22,8 @@ basePath: "/api/v1"
 #     # x-tokenInfoFunc: main.routes.login.login
 
 schemes:
-  - "http"
-  # - "https"
+  # - "http"
+  - "https"
 # security:
 #   - jwt: [] # use the same name as above
 
