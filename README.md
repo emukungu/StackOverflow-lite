@@ -47,7 +47,7 @@ Open the browser to view the endpoints with their specifications
 * localhost:5000 
 
 ## Demo
-https://stackoverflow-esther.herokuapp.com/
+https://stackoverflow-esther.herokuapp.com/api/v1/ui/#/
 
 ### License
 MIT License
