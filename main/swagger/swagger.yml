@@ -1,0 +1,419 @@
+swagger: "2.0"
+info:
+  description: StackOverflow-lite is a platform where people can ask questions and provide answers.
+               Located at http://localhost:5000/api/v1/ui/#/
+  version: "1.0.0"
+  title: StackOverflow-lite-API
+consumes:
+  - "application/json"
+produces:
+  - "application/json"
+
+host: "stackoverflow-esther.herokuapp.com"
+
+basePath: "/api/v1"
+
+# securityDefinitions:
+#   jwt:
+#     type: apikey
+#     name: Authorization
+#     in: header
+#     x-authentication-scheme: Bearer
+#     # x-tokenInfoFunc: main.routes.login.login
+
+schemes:
+  
+  - "https"
+# security:
+#   - jwt: [] # use the same name as above
+
+# Paths supported by the server application
+paths:
+  /auth/signup:
+    post:
+      operationId: main.routes.signup.signup
+      tags:
+        - "Users"
+      summary: ""
+      description: "Add a new user"
+      parameters:
+        - name: person
+          in: body
+          description: Person to create
+          required: True
+          schema:
+            type: object
+            properties:
+              username:
+                type: string
+              password:
+                type: string
+              email:
+                type: string
+      responses:
+        201:
+          description: "You have been successfully registered"
+          schema:
+            type: object
+            properties:
+              username:
+                type: string
+              password:
+                type: string
+              email:
+                type: string
+    get:
+      operationId: main.routes.signup.get_all_users
+      tags:
+        - "Users"
+      summary: ""
+      description: "Get all users"
+      responses:
+        404:
+          description: "Please enter the correct URL method"
+  /auth/login:
+    post:
+      operationId: main.routes.login.login
+      tags:
+        - "Users"
+      summary: ""
+      description: "Existing user"
+      parameters:
+        - name: Registered User
+          in: body
+          description: Person to login in
+          required: True
+          schema:
+            type: object
+            properties:
+              username:
+                type: string
+              password:
+                type: string
+      responses:
+        200:
+          description: "Token has been generated"
+          schema:
+            type: object
+            properties:
+              username:
+                type: string
+              password:
+                type: string
+              token:
+                type: integer
+    get:
+      operationId: main.routes.login.wrong_login_method
+      tags:
+        - "Users"
+      summary: ""
+      description: "Get a registered user"
+      responses:
+        404:
+          description: "Please enter the correct URL method"
+  /logout:
+    get:
+      operationId: main.routes.logout.logout
+      tags:
+        - "Users"
+      summary: ""
+      description: "Logout a user"
+      responses:
+        201:
+          description: "You have been successfully logged out"
+  /questions:
+    post:
+      operationId: main.routes.post_a_question_route.post_a_question
+      tags:
+        - "Questions"
+      summary: ""
+      description: "Add a new question"
+      parameters:
+        - name: Question
+          in: body
+          description: Question to be posted
+          required: True
+          schema:
+            type: object
+            properties:
+              title:
+                type: string
+              description:
+                type: string
+      responses:
+        201:
+          description: "Your question has been added to database"
+          schema:
+            type: object
+            properties:
+              username:
+                type: string
+              title:
+                type: string
+              date_created:
+                type: string
+              question_id:
+                type: integer
+    get:
+      operationId: main.routes.all_questions_route.get_all_questions
+      tags:
+        - "Questions"
+      summary: ""
+      description: "Get all questions"
+      responses:
+        200:
+          description: "Existing questions"
+          schema:
+            type: "array"
+            items:
+              properties:
+                username:
+                  type: "string"
+                title:
+                  type: "string"
+                qn_id:
+                  type: "integer"
+                date_created:
+                  type: "string"
+        404:
+          description: "None existing questions"
+  /questions/{questionId}:
+    post:
+      operationId: main.routes.get_specific_question.wrong_qn_id
+      tags:
+        - "Questions"
+      summary: ""
+      description: "Post a specific question"
+      parameters:
+        - name: questionId
+          in: path
+          description: Individual question
+          type: integer
+          required: True
+          format: path
+      responses:
+        405:
+          description: "Please enter the correct URL method"
+    get:
+      operationId: main.routes.get_specific_question.question_id
+      tags:
+        - "Questions"
+      summary: ""
+      description: "Get a specific questions"
+      parameters:
+        - name: questionId
+          in: path
+          description: Individual question
+          type: integer
+          required: True
+          format: path
+      responses:
+        200:
+          description: "Existing question"
+          schema:
+            type: "object"
+            properties:
+                Question:
+                  type: object
+                  properties:
+                    title:
+                      type: string
+                    description:
+                      type: string
+                    qn_id:
+                      type: integer
+        404:
+          description: "The question doesnot exist on this platform"
+    delete:
+      operationId: main.routes.delete.delete_question
+      tags:
+        - "Questions"
+      summary: ""
+      description: "Delete a question"
+      parameters:
+        - name: questionId
+          in: path
+          description: delete question
+          type: integer
+          required: True
+          format: path
+      responses:
+        204:
+          description: "Question has been deleted"
+        405:
+          description: "Please enter the correct URL method"
+  /user/questions:
+    get:
+      operationId: main.routes.all_questions_user_asked.user_questions
+      tags:
+        - "Questions"
+      summary: ""
+      description: "Get all questions asked by the user"          
+      responses:
+        200:
+          description: "Successfully retrieved all user questions"
+          schema:
+            type: object
+            properties:
+              username:
+                type: string
+              title:
+                type: string
+              date_created:
+                type: string
+              qn_Id:
+                type: integer
+  /questions/answers:
+    get:
+      operationId: main.routes.qns_withmost_answers.qns_withmost_answers
+      tags:
+        - "Questions"
+      summary: ""
+      description: "Get total number of answers for each question"
+      responses:
+        200:
+          description: "Total"
+          schema:
+            type: "array"
+            items:
+              properties:
+                title:
+                  type: "string"
+                counted_answers:
+                  type: "integer"
+  /questions/{questionId}/answers:
+    post:
+      operationId: main.routes.post_an_answer.answers
+      tags:
+        - "Answers"
+      summary: ""
+      description: "Add an answer to question"
+      parameters:
+        - name: questionId
+          in: path
+          description: Question to be answered
+          type: integer
+          required: True
+          format: path
+        - name: Answer
+          in: body
+          description: Answer to be created
+          required: True
+          schema:
+            type: object
+            properties:
+              answer:
+                type: string              
+      responses:
+        201:
+          description: "Your answer has been added"
+          schema:
+            type: object
+            properties:
+              username:
+                type: string
+              answer:
+                type: string
+              answer_Id:
+                type: integer
+    get:
+      operationId: main.routes.post_an_answer.get_all_answers
+      tags:
+        - "Answers"
+      summary: ""
+      description: "Get answers to a specific question"
+      parameters:
+        - name: questionId
+          in: path
+          description: Answers for each question
+          type: integer
+          required: True
+          format: path    
+      responses:
+        200:
+          description: "All answers for the question"
+          schema:
+            type: object
+            properties:
+              answered_user:
+                type: string
+              answer:
+                type: string
+              ans_d:
+                type: integer
+  /answers/{answerId}/comment':
+    post:
+      operationId: main.routes.answer_comment.comment
+      tags:
+        - "Answers"
+      summary: ""
+      description: "Add a comment to an answer"
+      parameters:
+        - name: answerId
+          in: path
+          description: Answer to be commented upon
+          type: integer
+          required: True
+          format: path
+        - name: Comment
+          in: body
+          description: Comment to be created
+          required: True
+          schema:
+            type: object
+            properties:
+              comment:
+                type: string              
+      responses:
+        201:
+          description: "Your comment has been added"
+          schema:
+            type: object
+            properties:
+              username:
+                type: string
+              comment:
+                type: string
+              ans_Id:
+                type: integer
+  /questions/{questionId}/answers/{answerId}:
+    put:
+      operationId: main.routes.put.update_an_answer
+      tags:
+        - "Answers"
+      summary: ""
+      description: "Update an answer"
+      parameters:
+        - name: questionId
+          in: path
+          description: Question whose answer is updated
+          type: integer
+          required: True
+          format: path
+        - name: answerId
+          in: path
+          description: Answer to be updated
+          type: integer
+          required: True
+          format: path
+        - name: answer to be used for update
+          in: body
+          description: Answer used for update
+          required: True
+          schema:
+            type: object
+            properties:
+              qn_answer:
+                type: string              
+      responses:
+        200:
+          description: "Your answer has been updated"
+          schema:
+            type: object
+            properties:
+              answer:
+                type: string
+              question_id:
+                type: string
+  
+  
