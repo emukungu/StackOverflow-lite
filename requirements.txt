@@ -29,7 +29,7 @@ psycopg2==2.7.5
 PyJWT==1.4.2
 pylint==2.1.1
 PyYAML==5.1
-requests==2.19.1
+requests==2.20.0
 six==1.11.0
 swagger-spec-validator==2.4.0
 typed-ast==1.1.0
